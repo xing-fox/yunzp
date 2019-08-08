@@ -1,0 +1,45 @@
+html, body, div, p, span, em, a, img, ul, li, img, h1, h2, h3, h4, h5, h6, input, textarea, button {
+  padding: 0;
+  margin: 0;
+  border: 0 none;
+}
+
+em, i {
+  font-style: normal;
+}
+
+a, button, input, textarea {
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+button, input, textarea {
+  -webkit-user-modify: read-write-plaintext-only;
+}
+
+input, textarea {
+  -webkit-appearance: none;
+}
+
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+input[type='number']::-webkit-outer-spin-button, input[type='number']::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
+
+a:hover {
+  text-decoration: none !important;
+}
+
+ul li {
+  list-style: none;
+}
+
+html, body {
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
+  font-family: Arial, Microsoft YaHei !important;
+  -webkit-overflow-scrolling: touch;
+}
