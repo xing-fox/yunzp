@@ -77,20 +77,20 @@
 <template>
   <div class="common-footer">
     <ul>
-      <li :class="{active: Flag == 0}" @click="changeRoute(0)">
+      <li :class="{active: Flag == 0}" @click="changeRoute(0, '/home')">
         <i class="home"></i>
         <span>首页</span>
       </li>
-      <li :class="{active: Flag == 1}" @click="changeRoute(1)">
+      <li :class="{active: Flag == 1}" @click="changeRoute(1, '/search')">
         <i class="search"></i>
         <span>找人才</span>
       </li>
       <li class="publish"></li>
-      <li :class="{active: Flag == 2}" @click="changeRoute(2)">
+      <li :class="{active: Flag == 2}" @click="changeRoute(2, '/news')">
         <i class="news"></i>
         <span>消息</span>
       </li>
-      <li :class="{active: Flag == 3}" @click="changeRoute(3)">
+      <li :class="{active: Flag == 3}" @click="changeRoute(3, '/me')">
         <i class="me"></i>
         <span>我的</span>
       </li>
@@ -107,8 +107,11 @@ export default {
     }
   },
   methods: {
-    changeRoute (arg) {
+    changeRoute (arg, url) {
       this.Flag = arg
+      this.$router.push({
+        path: url
+      })
     }
   }
 }

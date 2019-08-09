@@ -11,6 +11,20 @@ export default [
         meta: {
           title: '首页'
         }
+      }, {
+        path: 'search',
+        name: 'Search',
+        component: resolve => require(['@/view/nav/search'], resolve),
+        meta: {
+          title: '找人才'
+        }
+      }, {
+        path: 'me',
+        name: 'Me',
+        component: resolve => require(['@/view/nav/me'], resolve),
+        meta: {
+          title: '我的'
+        }
       }
     ]
   }
