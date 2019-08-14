@@ -27,13 +27,45 @@ export default [
         }
       }
     ]
+  },
+  {
+    path: '/login',
+    name: 'Login',
+    component: resolve => require(['@/view/signIn/login'], resolve),
+    meta: {
+      title: '登录'
+    }
+  },
+  {
+    path: '/forgetpwd',
+    name: 'ForgetPwd',
+    component: resolve => require(['@/view/signIn/forget-pwd'], resolve),
+    meta: {
+      title: '忘记密码'
+    }
+  },
+  {
+    path: '/getcode',
+    name: 'GetCode',
+    component: resolve => require(['@/view/signIn/get-code'], resolve),
+    meta: {
+      title: '输入验证码'
+    }
+  },
+  {
+    path: '/resetpwd',
+    name: 'ResetPwd',
+    component: resolve => require(['@/view/signIn/reset-pwd'], resolve),
+    meta: {
+      title: '重置密码'
+    }
+  },
+  {
+    path: '/register',
+    name: 'Register',
+    component: resolve => require(['@/view/signIn/register'], resolve),
+    meta: {
+      title: '注册'
+    }
   }
-  // {
-  //   path: '/my_order',
-  //   name: 'my_order',
-  //   component: resolve => require(['@/view/my/my-order'], resolve),
-  //   meta: {
-  //     title: '我的订单'
-  //   }
-  // }
 ]

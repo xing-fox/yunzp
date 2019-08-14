@@ -1,0 +1,139 @@
+<style lang="less" scoped>
+.signIn-register {
+  font-size: 0;
+  width: 100%;
+  .title {
+    color: #222;
+    font-size: 0.5rem;
+    font-weight: bold;
+    margin: 1.28rem 0 1rem 0.7rem;
+    text-align: left;
+  }
+  .content {
+    padding: 0 0.7rem;
+    .choise {
+      display: flex;
+      color: #3c3c3c;
+      font-size: 0.36rem;
+      height: 0.5rem;
+      line-height: 0.5rem;
+      margin: 0 0 0.6rem 0;
+      padding: 0 0 0.2rem 0;
+      border-bottom: 1px solid #eee;
+      span {
+        font-weight: bold;
+        &.tip {
+          color: #c8c8c8;
+          font-weight: inherit;
+          margin: 0 0.2rem 0 0;
+        }
+      }
+    }
+    label {
+      display: inline-block;
+      width: 100%;
+      &:nth-child(1) {
+        margin: 0 0 0.6rem 0;
+      }
+      input {
+        border: none;
+        color: #666;
+        font-size: 0.36rem;
+        width: 100%;
+        height: 0.55rem;
+        line-height: 0.55rem;
+        padding: 0 0 0.2rem 0;
+        border-radius: 0;
+        border-bottom: 1px solid #eee;
+      }
+    }
+    .submit {
+      color: #fff;
+      font-size: .36rem;
+      width: 6rem;
+      height: .9rem;
+      line-height: .9rem;
+      margin: .7rem auto 1.3rem;
+      border-radius: .45rem;
+      text-align: center;
+      background: rgba(0, 137, 249, 0.5);
+    }
+  }
+  .to-login {
+    color: rgba(0, 137, 249, 1);
+    font-size: .32rem;
+    font-weight: 400;
+    width: 100%;
+    text-align: center;
+  }
+  .step1 {
+    width: 100%;
+  }
+  .step2 {
+    width: 100%;
+    padding: 3rem 0 0 0;
+  }
+}
+</style>
+
+<template>
+  <div class="signIn-register">
+    <div class="step1" v-show="false">
+      <div class="title">欢迎来到云雇佣</div>
+      <div class="content">
+        <!-- 选择身份 -->
+        <div class="choise">
+          <span class="tip">请选择身份</span>
+          <popup-picker :data="roleData" :columns="1" :show-name="true" v-model="roleVal"/>
+        </div>
+        <label for="account">
+          <input type="text" placeholder="请输入用户名">
+        </label>
+        <div class="submit">
+          <span>下一步</span>
+        </div>
+      </div>
+      <div class="to-login">
+        <span>使用账号密码登录</span>
+      </div>
+    </div>
+    <div class="step2">
+      <div class="content">
+        <label for="account">
+          <input type="text" placeholder="请输入手机号">
+        </label>
+        <label for="account">
+          <input type="text" placeholder="请输入密码">
+        </label>
+        <div class="submit">
+          <span>注册</span>
+        </div>
+      </div>
+      <div class="to-login">
+        <span>使用账号密码登录</span>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+import { PopupPicker } from 'vux'
+export default {
+  name: 'Login',
+  data () {
+    return {
+      roleVal: ['1'],
+      roleData: [{
+        value: '1',
+        name: '雇主'
+      }, {
+        value: '2',
+        name: '员工'
+      }]
+    }
+  },
+  components: {
+    PopupPicker
+  }
+}
+</script>
