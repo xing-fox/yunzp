@@ -8,6 +8,10 @@ em, i {
   font-style: normal;
 }
 
+a {
+  text-decoration: none;
+}
+
 a, button, input, textarea {
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }

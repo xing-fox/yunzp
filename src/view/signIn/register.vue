@@ -32,6 +32,8 @@
     label {
       display: inline-block;
       width: 100%;
+      padding: 0 0 0.2rem 0;
+      border-bottom: 1px solid #eee;
       &:nth-child(1) {
         margin: 0 0 0.6rem 0;
       }
@@ -42,9 +44,7 @@
         width: 100%;
         height: 0.55rem;
         line-height: 0.55rem;
-        padding: 0 0 0.2rem 0;
         border-radius: 0;
-        border-bottom: 1px solid #eee;
       }
     }
     .submit {
@@ -57,14 +57,19 @@
       border-radius: .45rem;
       text-align: center;
       background: rgba(0, 137, 249, 0.5);
+      &.active {
+        background: rgba(0, 137, 249, 1);
+      }
     }
   }
   .to-login {
-    color: rgba(0, 137, 249, 1);
-    font-size: .32rem;
     font-weight: 400;
     width: 100%;
     text-align: center;
+    a {
+      color: rgba(0, 137, 249, 1);
+      font-size: .32rem;
+    }
   }
   .step1 {
     width: 100%;
@@ -78,7 +83,7 @@
 
 <template>
   <div class="signIn-register">
-    <div class="step1" v-show="false">
+    <div class="step1" v-if="step == 0">
       <div class="title">欢迎来到云雇佣</div>
       <div class="content">
         <!-- 选择身份 -->
@@ -87,30 +92,34 @@
           <popup-picker :data="roleData" :columns="1" :show-name="true" v-model="roleVal"/>
         </div>
         <label for="account">
-          <input type="text" placeholder="请输入用户名">
+          <input v-model="username" type="text" placeholder="请输入用户名">
         </label>
-        <div class="submit">
+        <div :class="{submit: true, active: vertifyUserName}" @click="step = 1">
           <span>下一步</span>
         </div>
       </div>
       <div class="to-login">
-        <span>使用账号密码登录</span>
+        <router-link to="/login">
+          <span>使用账号密码登录</span>
+        </router-link>
       </div>
     </div>
-    <div class="step2">
+    <div class="step2" v-if="step == 1">
       <div class="content">
         <label for="account">
-          <input type="text" placeholder="请输入手机号">
+          <input v-model="telephone" type="text" placeholder="请输入手机号">
         </label>
         <label for="account">
-          <input type="text" placeholder="请输入密码">
+          <input v-model="password" type="text" placeholder="请输入密码">
         </label>
-        <div class="submit">
+        <div :class="{submit: true, active: vertifyRegister}" class="submit">
           <span>注册</span>
         </div>
       </div>
       <div class="to-login">
-        <span>使用账号密码登录</span>
+        <router-link to="/login">
+          <span>使用账号密码登录</span>
+        </router-link>
       </div>
     </div>
   </div>
@@ -129,7 +138,19 @@ export default {
       }, {
         value: '2',
         name: '员工'
-      }]
+      }],
+      step: 0,
+      username: '',
+      password: '',
+      telephone: ''
+    }
+  },
+  computed: {
+    vertifyUserName () {
+      return this.username
+    },
+    vertifyRegister () {
+      return this.password && this.telephone
     }
   },
   components: {
