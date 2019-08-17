@@ -54,6 +54,7 @@
           color: #9b9b9b;
           font-size: 0.29rem;
           padding: 0 0.38rem 0 0;
+          position: relative;
           &.active {
             color: #3c3c3c;
             font-size: 0.32rem;

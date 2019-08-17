@@ -67,5 +67,13 @@ export default [
     meta: {
       title: '注册'
     }
+  },
+  {
+    path: '/mystaff',
+    name: 'MyStaff',
+    component: resolve => require(['@/view/my/my-staff'], resolve),
+    meta: {
+      title: '我的员工'
+    }
   }
 ]
