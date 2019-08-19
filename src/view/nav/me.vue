@@ -41,18 +41,20 @@
           width: 100%;
           li {
             flex: 1;
-            color:rgba(60, 60, 60, 1);
-            font-size: .28rem;
             padding: .3rem 0 0 0;
             text-align: center;
-            img {
-              width: .64rem;
-              height: .64rem;
-            }
-            span {
-              display: inline-block;
-              width: 100%;
-              text-align: center;
+            a {
+              color:rgba(60, 60, 60, 1);
+              font-size: .28rem;
+              img {
+                width: .64rem;
+                height: .64rem;
+              }
+              span {
+                display: inline-block;
+                width: 100%;
+                text-align: center;
+              }
             }
           }
         }
@@ -74,24 +76,27 @@
         text-align: left;
         li {
           display: inline-block;
-          color: rgba(60, 60, 60, 1);
-          font-size: .28rem;
           width: 1.14rem;
           margin: 0 .75rem .5rem 0;
           text-align: center;
           &:nth-child(4) {
             margin: 0;
           }
-          img {
-            width: .6rem;
-            height: .6rem;
-          }
-          span {
+          a {
             display: inline-block;
-            width: 100%;
-            height: .4rem;
-            line-height: .4rem;
-            margin: .2rem 0 0 0;
+            color: rgba(60, 60, 60, 1);
+            font-size: .28rem;
+            img {
+              width: .6rem;
+              height: .6rem;
+            }
+            span {
+              display: inline-block;
+              width: 100%;
+              height: .4rem;
+              line-height: .4rem;
+              margin: .1rem 0 0 0;
+            }
           }
         }
       }
@@ -112,12 +117,16 @@
       <div class="nav">
         <ul>
           <li>
-            <img src="../../icon/me/my_wallet.png">
-            <span>我的钱包</span>
+            <router-link to="/mywallet">
+              <img src="../../icon/me/my_wallet.png">
+              <span>我的钱包</span>
+            </router-link>
           </li>
           <li>
-            <img src="../../icon/me/my_staff.png">
-            <span>我的员工</span>
+            <router-link to="/mystaff">
+              <img src="../../icon/me/my_staff.png">
+              <span>我的员工</span>
+            </router-link>
           </li>
           <!-- <li>
             <img src="../../icon/me/my_auth.png">
@@ -130,28 +139,40 @@
       <div class="title">其他服务</div>
       <ul>
         <li>
-          <img src="../../icon/me/icon_money.png">
-          <span>交易记录</span>
+          <router-link to="/mytraderecord">
+            <img src="../../icon/me/icon_money.png">
+            <span>交易记录</span>
+          </router-link>
         </li>
         <li>
-          <img src="../../icon/me/icon_employ.png">
-          <span>雇佣记录</span>
+          <router-link to="/myemployrecord">
+            <img src="../../icon/me/icon_employ.png">
+            <span>雇佣记录</span>
+          </router-link>
         </li>
         <li>
-          <img src="../../icon/me/icon_resume.png">
-          <span>已收简历</span>
+          <router-link to="/myresume">
+            <img src="../../icon/me/icon_resume.png">
+            <span>已收简历</span>
+          </router-link>
         </li>
         <li>
-          <img src="../../icon/me/icon_collet.png">
-          <span>我的收藏</span>
+          <router-link to="/myresume">
+            <img src="../../icon/me/icon_collet.png">
+            <span>我的收藏</span>
+          </router-link>
         </li>
         <li>
-          <img src="../../icon/me/icon_invite.png">
-          <span>邀请好友</span>
+          <router-link to="/myresume">
+            <img src="../../icon/me/icon_invite.png">
+            <span>邀请好友</span>
+          </router-link>
         </li>
         <li>
-          <img src="../../icon/me/icon_server.png">
-          <span>联系客服</span>
+          <router-link to="/myresume">
+            <img src="../../icon/me/icon_server.png">
+            <span>联系客服</span>
+          </router-link>
         </li>
       </ul>
     </div>

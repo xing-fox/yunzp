@@ -1,5 +1,5 @@
 <style lang="less" scoped>
-.my-staff {
+.my-employ-record {
   font-size: 0;
   width: 100%;
   .main {
@@ -43,33 +43,12 @@
         }
       }
     }
-    .main-nav-details {
-      width: 100%;
-      margin: 0.3rem 0;
-      ul {
-        width: 100%;
-        li {
-          display: inline-block;
-          color: #3c3c3c;
-          font-size: 0.28rem;
-          margin: 0 0.2rem 0 0;
-          padding: 0.1rem 0.18rem;
-          border-radius: 0.06rem;
-          vertical-align: middle;
-          background: rgba(242, 242, 242, 1);
-          &.active {
-            color: #fff;
-            background:rgba(0, 137, 249, 1);
-          }
-        }
-      }
-    }
   }
 }
 </style>
 
 <style lang="less">
-.my-staff {
+.my-employ-record {
   .vux-cell-box {
     height: 0 !important;
     opacity: 0 !important;
@@ -78,7 +57,7 @@
 </style>
 
 <template>
-  <div class="my-staff">
+  <div class="my-employ-record">
     <div class="main">
       <div class="main-nav wrapper" ref="navScroll">
         <ul ref="navContent">
@@ -90,13 +69,7 @@
           >{{ list }}</li>
         </ul>
       </div>
-      <div class="main-nav-details">
-        <ul>
-          <li class="active">待支付</li>
-          <li>已完成</li>
-        </ul>
-      </div>
-      <staff-list :FromStaff="true" />
+      <staff-list :NoButton="false" :FromTrade="true" />
     </div>
   </div>
 </template>
@@ -105,7 +78,7 @@
 import BScroll from 'better-scroll'
 import StaffList from '@/components/my/my-staff-list'
 export default {
-  name: 'MyStaff',
+  name: 'MyEmployRecord',
   data () {
     return {
       navTypeIndex: 0,

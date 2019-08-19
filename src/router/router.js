@@ -75,5 +75,37 @@ export default [
     meta: {
       title: '我的员工'
     }
+  },
+  {
+    path: '/mywallet',
+    name: 'MyWallet',
+    component: resolve => require(['@/view/my/my-wallet'], resolve),
+    meta: {
+      title: '我的钱包'
+    }
+  },
+  {
+    path: '/myresume',
+    name: 'MyResume',
+    component: resolve => require(['@/view/my/my-resume'], resolve),
+    meta: {
+      title: '已收简历'
+    }
+  },
+  {
+    path: '/myemployrecord',
+    name: 'MyEmployRecord',
+    component: resolve => require(['@/view/my/my-employ-record'], resolve),
+    meta: {
+      title: '雇佣记录'
+    }
+  },
+  {
+    path: '/mytraderecord',
+    name: 'MyTradeRecord',
+    component: resolve => require(['@/view/my/my-trade-record'], resolve),
+    meta: {
+      title: '交易记录'
+    }
   }
 ]
