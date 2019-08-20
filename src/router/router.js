@@ -107,5 +107,13 @@ export default [
     meta: {
       title: '交易记录'
     }
+  },
+  {
+    path: '/resumedetails',
+    name: 'ResumeDetails',
+    component: resolve => require(['@/view/resume-details'], resolve),
+    meta: {
+      title: '简历详情'
+    }
   }
 ]

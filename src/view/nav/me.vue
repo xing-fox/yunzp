@@ -11,6 +11,17 @@
       .uers {
         display: flex;
         padding: 0 0 0 .3rem;
+        position: relative;
+        i {
+          display: inline-block;
+          width: .42rem;
+          height: .42rem;
+          position: absolute;
+          left: 1.18rem;
+          bottom: 0;
+          background-image: url('../../icon/me/photo.png');
+          background-size: 100% 100%;
+        }
         img {
           width: 1.3rem;
           height: 1.3rem;
@@ -109,6 +120,7 @@
     <div class="header">
       <div class="uers">
         <img src="../../icon/me/user.png" />
+        <i class="photo" />
         <div class="users-login">
           <div class="title">登陆注册</div>
           <div>欢迎来到云雇佣~</div>

@@ -90,7 +90,7 @@
           <div class="salary">5000元/月</div>
         </div>
         <div class="li-bottom">
-          <div class="button">
+          <div class="button" @click="changeFunc">
             <div class="button-box">
               <span>查看简历</span>
             </div>
@@ -103,6 +103,13 @@
 
 <script>
 export default {
-  name: 'MyResume'
+  name: 'MyResume',
+  methods: {
+    changeFunc () {
+      this.$router.push({
+        path: '/resumedetails'
+      })
+    }
+  }
 }
 </script>
