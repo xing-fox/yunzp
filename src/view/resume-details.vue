@@ -77,9 +77,18 @@
     }
     .content {
       padding: 1.86rem .24rem 1.5rem;
+      position: relative;
       ul.nav {
         display: flex;
         width: 100%;
+        background: #fff;
+        &.fix {
+          position: fixed;
+          top: 0;
+          left: 0;
+          right: 0;
+          margin: 0 auto;
+        }
         li {
           flex: 1;
           color: #9b9b9b;
@@ -118,7 +127,7 @@
       ul.box {
         width: 7rem;
         margin: 0 auto;
-        padding: .34rem 0 .54rem .2rem;
+        padding: .4rem 0 .4rem .2rem;
         text-align: left;
         box-sizing: border-box;
         background: rgba(255, 255, 255, 1);
@@ -132,6 +141,7 @@
           line-height: .42rem;
           span {
             color: #9b9b9b;
+            font-size: .28rem;
             font-weight: initial;
           }
         }
@@ -186,6 +196,19 @@
       right: 0;
       bottom: 0;
       z-index: 1;
+      &:before {
+        content: '';
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        border-top: 1px solid #eee;
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        transform-origin: 0 0;
+        transform: scaleY(0.5);
+        box-sizing: border-box;
+      }
       .box {
         flex: 1;
         text-align: center;
@@ -280,7 +303,7 @@
       </ul>
     </div>
     <div class="content">
-      <ul class="nav">
+      <ul :class="['nav', {fix: scrollTop > compileHeight}]">
         <li class="active">简历</li>
         <li>作品(12)</li>
         <li>评价(15)</li>
@@ -337,7 +360,7 @@
       </div>
     </div>
     <div class="footer">
-      <div class="box">
+      <div class="box" @click="collectFunc">
         <i class="collect"></i>
         <span>收藏</span>
       </div>
@@ -359,8 +382,26 @@
 <script>
 export default {
   name: 'ResumeDetails',
+  data () {
+    return {
+      scrollTop: 0
+    }
+  },
+  computed: {
+    compileHeight () {
+      return window.innerWidth * 0.73
+    }
+  },
+  methods: {
+    collectFunc () {
+      this.$vux.toast.text('已收藏')
+    },
+    handleScroll () {
+      this.scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || document.scrollingElement.scrollTop || 0
+    }
+  },
   mounted () {
-    // console.log(this.$route.meta)
+    window.addEventListener('scroll', this.handleScroll)
   }
 }
 </script>

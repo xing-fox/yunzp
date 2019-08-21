@@ -115,5 +115,21 @@ export default [
     meta: {
       title: '简历详情'
     }
+  },
+  {
+    path: '/publistneed',
+    name: 'PublistNeed',
+    component: resolve => require(['@/view/publish/publish-need'], resolve),
+    meta: {
+      title: '发布需求'
+    }
+  },
+  {
+    path: '/publistpost',
+    name: 'PublistPost',
+    component: resolve => require(['@/view/publish/publish-post'], resolve),
+    meta: {
+      title: '发布简历'
+    }
   }
 ]

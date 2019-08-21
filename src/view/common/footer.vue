@@ -8,7 +8,8 @@
     left: 0;
     right: 0;
     bottom: 0;
-    ul {
+    z-index: 10000;
+    ul.footer-nav {
       display: flex;
       width: 100%;
       li {
@@ -72,11 +73,53 @@
       }
     }
   }
+  .publish-content {
+    font-size: 0;
+    padding: .5rem .24rem 0;
+    background: #fff;
+    position: relative;
+    z-index: 10000;
+    ul {
+      display: flex;
+      width: 100%;
+      padding: 0 0 .4rem 0;
+      position: relative;
+      li {
+        flex: 1;
+        text-align: center;
+        a {
+          display: inline-block;
+          color: #222;
+          font-size: .28rem;
+          width: 100%;
+          img {
+            width: 1.06rem;
+            height: 1.06rem;
+            margin: 0 0 .2rem 0;
+          }
+          span {
+            display: inline-block;
+            width: 100%;
+            height: .4rem;
+            line-height: .4rem;
+          }
+        }
+      }
+    }
+    .cancel {
+      color: #3c3c3c;
+      font-size: .36rem;
+      width: 100%;
+      height: 1.06rem;
+      line-height: 1.06rem;
+      text-align: center;
+    }
+  }
 </style>
 
 <template>
   <div class="common-footer">
-    <ul>
+    <ul class="footer-nav">
       <li :class="{active: Flag == 0}" @click="changeRoute(0, '/home')">
         <i class="home"></i>
         <span>首页</span>
@@ -85,7 +128,7 @@
         <i class="search"></i>
         <span>找人才</span>
       </li>
-      <li class="publish"></li>
+      <li class="publish" @click="publishStatus=true"></li>
       <li :class="{active: Flag == 2}" @click="changeRoute(2, '/news')">
         <i class="news"></i>
         <span>消息</span>
@@ -95,16 +138,40 @@
         <span>我的</span>
       </li>
     </ul>
+    <!-- 发布信息 -->
+    <Popup v-model="publishStatus" position="bottom" :is-transparent="true">
+      <div class="publish-content">
+        <ul>
+          <li>
+            <router-link to="/publistneed">
+              <img src="../../icon/footer/publish-need.png">
+              <span>发布需求</span>
+            </router-link>
+          </li>
+          <li>
+            <router-link to="/publistpost">
+              <img src="../../icon/footer/publish-post.png">
+              <span>发布职位</span>
+            </router-link>
+          </li>
+        </ul>
+      </div>
+    </Popup>
   </div>
 </template>
 
 <script>
+import { Popup } from 'vux'
 export default {
   name: 'CommonFooter',
   data () {
     return {
-      Flag: 0
+      Flag: 0,
+      publishStatus: false
     }
+  },
+  components: {
+    Popup
   },
   methods: {
     changeRoute (arg, url) {
