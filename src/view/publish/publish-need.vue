@@ -63,9 +63,11 @@
 </style>
 
 <style lang="less">
-  .vux-popup-picker-select {
-    font-size: .32rem;
-    height: .5rem;
+  .publish-need {
+    .vux-popup-picker-select {
+      font-size: .32rem;
+      height: .5rem;
+    }
   }
 </style>
 

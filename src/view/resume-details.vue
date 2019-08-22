@@ -371,26 +371,40 @@
       <div class="contact">
         立即联系
       </div>
-      <div class="employ">
+      <div class="employ" @click="employStatus = true">
         雇佣
         <span>¥1666/月</span>
       </div>
     </div>
+    <!-- 雇佣详情 -->
+    <Popup :popup-style="{popupStyle}" v-model="employStatus" :is-transparent="true">
+      <resume-employ @closeEmploy="employStatus = false" />
+    </Popup>
   </div>
 </template>
 
 <script>
+import { Popup } from 'vux'
+import ResumeEmploy from '@/components/employ/index'
 export default {
   name: 'ResumeDetails',
   data () {
     return {
-      scrollTop: 0
+      scrollTop: 0,
+      popupStyle: {
+        zIndex: 10
+      },
+      employStatus: false
     }
   },
   computed: {
     compileHeight () {
       return window.innerWidth * 0.73
     }
+  },
+  components: {
+    Popup,
+    ResumeEmploy
   },
   methods: {
     collectFunc () {

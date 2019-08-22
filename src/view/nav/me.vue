@@ -157,10 +157,10 @@
           <img src="../../icon/me/icon_collet.png">
           <span>我的收藏</span>
         </li>
-        <li @click="routeChange('/myresume')">
+        <!-- <li @click="routeChange('/myresume')">
           <img src="../../icon/me/icon_invite.png">
           <span>邀请好友</span>
-        </li>
+        </li> -->
         <li @click="routeChange('/myresume')">
           <img src="../../icon/me/icon_server.png">
           <span>联系客服</span>
@@ -178,7 +178,11 @@ export default {
       this.$vux.confirm.show({
         title: '',
         content: '您当前还未登录，请先登录?',
-        onCancel: () => {},
+        onCancel: () => {
+          this.$router.push({
+            path: path
+          })
+        },
         confirmText: '登录',
         onConfirm: () => {
           this.$router.push({
