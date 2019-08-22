@@ -79,6 +79,7 @@
               }
             }
             input {
+              color: #ff0000;
               font-size: .3rem;
               width: 1.5rem;
               height: .66rem;
@@ -94,10 +95,23 @@
             }
             .employ-time {
               display: flex;
-              width: 1.78rem;
+              width: 2rem;
+              height: .58rem;
+              line-height: .58rem;
+              border-radius: .06rem;
+              border: 1px solid rgba(200, 200, 200, 1);
               li {
                 flex: 1;
-                &.employ-count {}
+                color: #c8c8c8;
+                font-size: .3rem;
+                font-weight: bold;
+                &.employ-count {
+                  color: #0089F9;
+                  font-size: .3rem;
+                  font-weight: initial;
+                  border-left: 1px solid rgba(200, 200, 200, 1);
+                  border-right: 1px solid rgba(200, 200, 200, 1);
+                }
               }
             }
             .salary {
@@ -181,7 +195,7 @@
             </group>
           </div>
         </div>
-        <div class="list">
+        <div class="list" v-if="!employType">
           <div class="list-left">雇佣时间</div>
           <div class="list-right">
             <ul class="employ-time">
