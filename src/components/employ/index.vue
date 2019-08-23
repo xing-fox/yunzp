@@ -1,5 +1,5 @@
 <style lang="less" scoped>
-  .employ-model {
+  .employ-model-wrapper {
     font-size: 0;
     width: 100%;
     background: #fff;
@@ -139,7 +139,7 @@
 </style>
 
 <style lang="less">
-  .employ-model {
+  .employ-model-wrapper {
     .vux-no-group-title {
       margin-top: 0;
     }
@@ -163,7 +163,7 @@
 </style>
 
 <template>
-  <div class="employ-model">
+  <div class="employ-model-wrapper">
     <div class="employ-model-content">
       <div class="title">雇佣详情</div>
       <i class="close" @click="$emit('closeEmploy')"/>

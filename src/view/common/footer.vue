@@ -8,7 +8,7 @@
     left: 0;
     right: 0;
     bottom: 0;
-    z-index: 10000;
+    z-index: 501;
     ul.footer-nav {
       display: flex;
       width: 100%;
@@ -22,7 +22,7 @@
           display: inline-block;
           width: .36rem;
           height: .36rem;
-          margin: .15rem 0 .05rem 0;
+          margin: .1rem 0 .05rem 0;
           background-size: 100% 100%;
           &.home {
             background-image: url('@{path}/home.png');
@@ -139,7 +139,7 @@
       </li>
     </ul>
     <!-- 发布信息 -->
-    <Popup v-model="publishStatus" position="bottom" :is-transparent="true">
+    <Popup v-model="publishStatus" :popup-style="{popupStyle}" position="bottom" :is-transparent="true">
       <div class="publish-content">
         <ul>
           <li>
@@ -167,6 +167,9 @@ export default {
   data () {
     return {
       Flag: 0,
+      popupStyle: {
+        zIndex: 10
+      },
       publishStatus: false
     }
   },

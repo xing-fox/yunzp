@@ -22,7 +22,7 @@
         input {
           border: none;
           color: #666;
-          font-size: .36rem;
+          font-size: .32rem;
           width: 100%;
           height: .5rem;
           line-height: .5rem;

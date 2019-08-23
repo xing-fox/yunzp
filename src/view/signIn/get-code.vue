@@ -42,7 +42,7 @@
           flex: 1;
           border: none;
           color: #666;
-          font-size: .36rem;
+          font-size: .32rem;
           width: 100%;
           height: .55rem;
           line-height: .55rem;

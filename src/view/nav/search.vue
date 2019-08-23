@@ -113,8 +113,12 @@
         flex: 1;
         li {
           display: inline-block;
+          width: 1.2rem;
           margin: 0 0.5rem 0 0;
           position: relative;
+          &:nth-last-child(1) {
+            margin: 0;
+          }
           &.active {
             color: #0089f9;
             i {
@@ -155,6 +159,9 @@
 
 <style lang="less">
   .nav-search {
+    .weui-cell {
+      padding: 0;
+    }
     .vux-cell-box {
       height: 0 !important;
       opacity: 0 !important;

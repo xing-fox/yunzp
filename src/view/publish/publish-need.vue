@@ -1,5 +1,5 @@
 <style lang="less" scoped>
-  .publish-need {
+  .publish-need-wrapper {
     font-size: 0;
     width: 100%;
     ul {
@@ -21,11 +21,15 @@
           }
           textarea {
             color: #9b9b9b;
-            font-size: .32rem;
-            line-height: .5rem;
+            font-size: .28rem;
+            line-height: .4rem;
             width: 100%;
-            height: 2rem;
-            margin: .4rem 0;
+            height: 2.4rem;
+            margin: .2rem 0 .4rem;
+            padding: .2rem .15rem;
+            box-sizing: border-box;
+            border-radius: .06rem;
+            background: #eee;
           }
         }
         span {
@@ -63,16 +67,23 @@
 </style>
 
 <style lang="less">
-  .publish-need {
+  .publish-need-wrapper {
     .vux-popup-picker-select {
       font-size: .32rem;
       height: .5rem;
+    }
+    .weui-cell__ft {
+      padding-right: 0;
+      &:after,
+      &:before {
+        content: none;
+      }
     }
   }
 </style>
 
 <template>
-  <div class="publish-need">
+  <div class="publish-need-wrapper">
     <ul>
       <li>
         <span>

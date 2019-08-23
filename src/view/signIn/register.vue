@@ -40,7 +40,7 @@
       input {
         border: none;
         color: #666;
-        font-size: 0.36rem;
+        font-size: 0.32rem;
         width: 100%;
         height: 0.55rem;
         line-height: 0.55rem;
@@ -87,10 +87,10 @@
       <div class="title">欢迎来到云雇佣</div>
       <div class="content">
         <!-- 选择身份 -->
-        <div class="choise">
+        <!-- <div class="choise">
           <span class="tip">请选择身份</span>
           <popup-picker :data="roleData" :columns="1" :show-name="true" v-model="roleVal"/>
-        </div>
+        </div> -->
         <label for="account">
           <input v-model="username" type="text" placeholder="请输入用户名">
         </label>

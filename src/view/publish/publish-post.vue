@@ -1,12 +1,11 @@
 <style lang="less" scoped>
-  .publish-post {
+  .publish-post-wrapper {
     font-size: 0;
     width: 100%;
     height: 100vh;
     padding: .4rem 0 0 0;
     box-sizing: border-box;
     position: relative;
-    z-index: 501;
     .post-main {
       display: flex;
       width: 100%;
@@ -39,104 +38,123 @@
 </style>
 
 <style lang="less">
-  .publish-post-content {
-    font-size: 0;
-    width: 100%;
-    min-height: 100vh;
-    padding: 0 0 .2rem 0;
-    background: #fff;
-    ul {
-      padding: .3rem .21rem 0 .24rem;
-      li {
-        display: flex;
-        color: #9b9b9b;
-        font-size: .32rem;
-        width: 100%;
-        height: .5rem;
-        margin: 0 0 .6rem;
-        overflow: hidden;
-        &.textarea {
-          display: initial;
-          text-align: left;
-          span {
-            width: 100%;
-            text-align: left;
-            margin: 0;
-          }
-          textarea {
-            color: #9b9b9b;
-            font-size: .32rem;
-            line-height: .5rem;
-            width: 100%;
-            height: 2rem;
-            margin: .4rem 0;
-          }
-        }
-        span {
-          display: inline-block;
-          height: .5rem;
-          line-height: .5rem;
-          margin: 0 .5rem 0 0;
-          vertical-align: top;
-          &.span-1 {
-            color: #222;
-            margin: 0 0 0 .3rem;
-            line-height: .55rem;
-          }
-        }
-        input {
-          border: none;
-          -webkit-appearance: none;
-          flex: 1;
-          font-size: .32rem;
-          height: .5rem;
-          line-height: .5rem;
-          text-align: right;
-          vertical-align: top;
-          &.input-type {
-            width: 1rem;
-          }
-        }
-        .choise {
-          flex: 1;
+  .publish-post-wrapper {
+    .publish-post-content {
+      font-size: 0;
+      width: 100%;
+      min-height: 100vh;
+      padding: 0 0 .2rem 0;
+      background: #fff;
+      ul {
+        padding: .3rem .21rem 0 .24rem;
+        li {
+          display: flex;
           color: #9b9b9b;
           font-size: .32rem;
+          width: 100%;
           height: .5rem;
-          text-align: right;
-          position: relative;
+          margin: 0 0 .6rem;
+          overflow: hidden;
+          &.textarea {
+            display: initial;
+            text-align: left;
+            span {
+              width: 100%;
+              text-align: left;
+              margin: 0;
+            }
+            textarea {
+              color: #9b9b9b;
+              font-size: .28rem;
+              line-height: .4rem;
+              width: 100%;
+              height: 2.4rem;
+              margin: .2rem 0 .3rem;
+              padding: .2rem .15rem;
+              border-radius: .06rem;
+              box-sizing: border-box;
+              background: #eee;
+            }
+          }
           span {
-            margin: 0;
+            display: inline-block;
+            height: .5rem;
+            line-height: .5rem;
+            margin: 0 .5rem 0 0;
+            vertical-align: top;
+            &.span-1 {
+              color: #222;
+              margin: 0 0 0 .3rem;
+              line-height: .55rem;
+            }
+          }
+          input {
+            border: none;
+            -webkit-appearance: none;
+            flex: 1;
+            font-size: .32rem;
+            height: .5rem;
+            line-height: .5rem;
+            text-align: right;
+            vertical-align: top;
+            &.input-type {
+              width: 1rem;
+            }
+          }
+          .choise {
+            flex: 1;
+            color: #9b9b9b;
+            font-size: .32rem;
+            height: .5rem;
+            text-align: right;
+            position: relative;
+            span {
+              margin: 0;
+            }
           }
         }
       }
-    }
-    .cancel {
-      color: #999;
-      font-size: .32rem;
-      height: .9rem;
-      line-height: .9rem;
-      margin: .2rem .24rem;
-      border-radius: .45rem;
-      background: #eee;
-    }
-    .submit {
-      color: #fff;
-      font-size: .32rem;
-      height: .9rem;
-      line-height: .9rem;
-      margin: .2rem .24rem;
-      border-radius: .45rem;
-      background: #0089F9;
-    }
-    .vux-popup-picker-select {
-      font-size: .32rem;
-      height: .5rem;
+      .submit {
+        color: #fff;
+        font-size: .32rem;
+        height: .9rem;
+        line-height: .9rem;
+        margin: .2rem .24rem;
+        border-radius: .45rem;
+        background: #0089F9;
+      }
+      .vux-popup-picker-select {
+        font-size: .32rem;
+        height: .5rem;
+      }
+      .vux-no-group-title {
+        margin-top: 0;
+      }
+      .weui-cell {
+        padding: 0;
+        height: .5rem;
+        line-height: .5rem;
+      }
+      .weui-cells {
+        margin-top: 0;
+        &:before,
+        &:after {
+          content: none;
+        }
+      }
+      .weui-cell__ft {
+        padding-right: 0;
+        &:after,
+        &:before {
+          content: none;
+        }
+      }
     }
   }
 </style>
 
 <template>
-  <div class="publish-post">
+  <div class="publish-post-wrapper">
     <div class="post-main">
       <div class="list-type" ref="listScroll">
         <ul>
@@ -150,7 +168,7 @@
       </div>
     </div>
     <!-- 发布信息 -->
-    <Popup v-model="publishPostStatus" :is-transparent="true" height="100%">
+    <Popup v-model="publishPostStatus" :popup-style="{popupStyle}" width="86%" position="right" :is-transparent="true" height="100%">
       <div class="publish-post-content">
         <ul>
           <li>
@@ -219,9 +237,6 @@
             <textarea placeholder="请填写您的具体要求，限于300字"></textarea>
           </li>
         </ul>
-        <div class="cancel" @click=" publishPostStatus = false">
-          <span>取消</span>
-        </div>
         <div class="submit">
           <span>发布职位</span>
         </div>
@@ -237,6 +252,9 @@ export default {
   name: 'PublistPost',
   data () {
     return {
+      popupStyle: {
+        zIndex: 10
+      },
       publishPostStatus: false,
       formData: {
         title: '',
