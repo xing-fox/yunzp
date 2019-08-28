@@ -1,7 +1,7 @@
 export default {
   state: {
     LoginStatus: false, // 登录界面
-    LoginInfo: sessionStorage.getItem('userInfo') ? JSON.parse(sessionStorage.getItem('userInfo')) : {}
+    LoginInfo: localStorage.getItem('userInfo') ? JSON.parse(localStorage.getItem('userInfo')) : {}
   },
   actions: {},
   mutations: {
@@ -10,7 +10,7 @@ export default {
     },
     StoreLoginInfo (state, info) {
       state.LoginInfo = info
-      sessionStorage.setItem('userInfo', JSON.stringify(info))
+      localStorage.setItem('userInfo', JSON.stringify(info))
     }
   },
   getters: {

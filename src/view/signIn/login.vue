@@ -83,7 +83,7 @@
           <span>忘记密码</span>
         </router-link>
       </div>
-      <div :class="{submit: true, active: VertifyLogin}" @click="Sumbit">
+      <div :class="{submit: true, active: VertifyLogin}" @click="SumbitFunc">
         <span>登录</span>
       </div>
     </div>
@@ -96,7 +96,8 @@
 </template>
 
 <script>
-import {Login} from '@/fetch/api'
+import { Login } from '@/fetch/api'
+import { mapMutations } from 'vuex'
 export default {
   name: 'Login',
   data () {
@@ -111,12 +112,22 @@ export default {
     }
   },
   methods: {
-    Sumbit () {
+    ...mapMutations([
+      'StoreLoginInfo'
+    ]),
+    SumbitFunc () {
       Login({
         username: this.username,
         password: this.password
       }).then(res => {
-        // console.log(res)
+        if (res.code === 200) {
+          this.StoreLoginInfo(res.data)
+          this.$router.push({
+            path: '/me'
+          })
+        } else {
+          this.$vux.toast.text(res.msg)
+        }
       })
     }
   }

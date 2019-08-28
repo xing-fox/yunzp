@@ -117,7 +117,8 @@
         <img src="../../icon/me/user.png" />
         <i class="photo" />
         <div class="users-login">
-          <div class="title">登陆注册</div>
+          <div class="title" v-if="!UserInfo.user_login">登陆注册</div>
+          <div class="name" v-else>{{ UserInfo.user_login }}</div>
           <div>欢迎来到云雇佣~</div>
         </div>
       </div>
@@ -171,25 +172,31 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 export default {
   name: 'Me',
+  computed: mapState({
+    UserInfo: state => state.Login.LoginInfo
+  }),
   methods: {
     routeChange (path) {
-      this.$vux.confirm.show({
-        title: '',
-        content: '您当前还未登录，请先登录?',
-        onCancel: () => {
-          this.$router.push({
-            path: path
-          })
-        },
-        confirmText: '登录',
-        onConfirm: () => {
-          this.$router.push({
-            path: 'login'
-          })
-        }
-      })
+      if (this.UserInfo.user_login) {
+        this.$router.push({
+          path: path
+        })
+      } else {
+        this.$vux.confirm.show({
+          title: '',
+          content: '您当前还未登录，请先登录?',
+          onCancel: () => {},
+          confirmText: '登录',
+          onConfirm: () => {
+            this.$router.push({
+              path: 'login'
+            })
+          }
+        })
+      }
     }
   }
 }

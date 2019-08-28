@@ -166,6 +166,15 @@ export default {
         // work_type: '' // 身份类型
       }).then(res => {
         console.log(res)
+        if (res.code === 200) {
+          this.$vux.toast.text('注册成功')
+          this.$router.push({
+            path: '/login'
+          })
+        } else {
+          this.step = 0
+          this.$vux.toast.text(res.msg)
+        }
       })
     }
   }
