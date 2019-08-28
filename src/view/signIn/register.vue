@@ -112,7 +112,7 @@
         <label for="account">
           <input v-model="password" type="text" placeholder="请输入密码">
         </label>
-        <div :class="{submit: true, active: vertifyRegister}" class="submit">
+        <div :class="{submit: true, active: vertifyRegister}" class="submit" @click="submitFunc">
           <span>注册</span>
         </div>
       </div>
@@ -127,6 +127,7 @@
 
 <script>
 import { PopupPicker } from 'vux'
+import { Register } from '@/fetch/api'
 export default {
   name: 'Login',
   data () {
@@ -155,6 +156,18 @@ export default {
   },
   components: {
     PopupPicker
+  },
+  methods: {
+    submitFunc () {
+      Register({
+        mobile: this.telephone, // 手机号码
+        username: this.username, // 用户名
+        user_pass: this.password // 密码
+        // work_type: '' // 身份类型
+      }).then(res => {
+        console.log(res)
+      })
+    }
   }
 }
 </script>

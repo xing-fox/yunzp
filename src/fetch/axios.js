@@ -68,6 +68,7 @@ export function Post (url, params, headers) {
       }
     })
       .then(response => {
+        console.log(response)
         resolve(response.data)
       }, err => {
         reject(err)
