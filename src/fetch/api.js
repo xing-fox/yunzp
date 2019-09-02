@@ -13,3 +13,17 @@ export const Login = (param) => {
 export const Register = (param) => {
   return Post('/mobile/register/doRegister', param)
 }
+
+/**
+ * @param 重置密码(发送验证码)
+ */
+export const Getcode = (param) => {
+  return Post('/mobile/login/forget_password', param)
+}
+
+/**
+ * @param 重置密码(验证短信验证码)
+ */
+export const Checkcode = (param) => {
+  return Post('/mobile/login/checking_code', param)
+}

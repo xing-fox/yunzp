@@ -47,6 +47,10 @@
         border-radius: .45rem;
         text-align: center;
         background:rgba(0, 137, 249, .5);
+        &.active {
+          pointer-events: fill;
+          background: rgba(0, 137, 249, 1);
+        }
       }
     }
   }
@@ -58,9 +62,9 @@
     <div class="content">
       <label for="phone">
         <span>+86</span>
-        <input type="text" placeholder="请输入手机号">
+        <input v-model="telephone" type="text" placeholder="请输入手机号">
       </label>
-      <div class="submit">
+      <div :class="{submit: true, active: VertifyLogin}" @click="GetcodeFunc">
         <span>获取验证码</span>
       </div>
     </div>
@@ -69,6 +73,28 @@
 
 <script>
 export default {
-  name: 'ForgetPwd'
+  name: 'ForgetPwd',
+  computed: {
+    VertifyLogin () {
+      return this.telephone
+    }
+  },
+  data () {
+    return {
+      telephone: ''
+    }
+  },
+  methods: {
+    GetcodeFunc () {
+      let Reg = /^[1][3,4,5,6,7,8,9][0-9]{9}$/
+      if (!Reg.test(this.telephone)) return this.$vux.toast.text('手机号输入有误')
+      this.$router.push({
+        path: '/getcode',
+        query: {
+          tele: this.telephone
+        }
+      })
+    }
+  }
 }
 </script>

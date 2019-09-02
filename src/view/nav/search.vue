@@ -26,14 +26,20 @@
         left: 0;
         bottom: 0;
       }
-      input {
+      .input {
+        display: table;
         border: none;
-        color: #fff;
-        font-size: 0.3rem;
+        color: #666;
+        font-size: .3rem;
         width: 100%;
-        height: 0.7rem;
-        padding: 0 0 0 0.85rem;
+        height: .7rem;
+        padding: 0 0 0 .85rem;
+        text-align: left;;
         background: rgba(242, 242, 242, 1);
+        span {
+          display: table-cell;
+          vertical-align: middle;
+        }
       }
     }
   }
@@ -174,7 +180,9 @@
     <div class="header">
       <div class="search">
         <i></i>
-        <input type="text" placeholder="网页设计">
+        <div class="input">
+          <span>网页设计</span>
+        </div>
       </div>
     </div>
     <div class="main">

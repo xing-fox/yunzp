@@ -117,7 +117,7 @@
         <img src="../../icon/me/user.png" />
         <i class="photo" />
         <div class="users-login">
-          <div class="title" v-if="!UserInfo.user_login">登陆注册</div>
+          <div class="title" v-if="!UserInfo.user_login" @click="loginInFunc">登陆注册</div>
           <div class="name" v-else>{{ UserInfo.user_login }}</div>
           <div>欢迎来到云雇佣~</div>
         </div>
@@ -179,6 +179,11 @@ export default {
     UserInfo: state => state.Login.LoginInfo
   }),
   methods: {
+    loginInFunc () {
+      this.$router.push({
+        path: '/login'
+      })
+    },
     routeChange (path) {
       if (this.UserInfo.user_login) {
         this.$router.push({

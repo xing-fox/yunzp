@@ -38,14 +38,20 @@
           left: 0;
           bottom: 0;
         }
-        input {
+        .input {
+          display: table;
           border: none;
           color: #fff;
           font-size: .3rem;
           width: 100%;
           height: .7rem;
           padding: 0 0 0 .85rem;
-          background-color: rgba(255, 255, 255, .7);
+          text-align: left;;
+          background-color: rgba(255, 255, 255, .3);
+          span {
+            display: table-cell;
+            vertical-align: middle;
+          }
         }
       }
       .swiper-container,
@@ -226,9 +232,11 @@
 <template>
   <div class="nav-home">
     <div class="header">
-      <div class="search">
+      <div class="search" @click="changeSearch">
         <i></i>
-        <input type="text" placeholder="网页设计">
+        <div class="input">
+          <span>网页设计</span>
+        </div>
       </div>
       <div class="swiper-container" ref="swiperContainer">
         <div class="swiper-wrapper">
@@ -364,6 +372,13 @@ export default {
       direction: 'vertical',
       autoplay: true
     })
+  },
+  methods: {
+    changeSearch () {
+      this.$router.push({
+        path: '/searchpage'
+      })
+    }
   }
 }
 </script>

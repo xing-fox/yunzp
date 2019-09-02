@@ -1,0 +1,86 @@
+<style lang="less" scoped>
+  .input-search {
+    font-size: 0;
+    width: 100%;
+    height: 100%;
+    padding: .2rem 0;
+    box-sizing: border-box;
+    .header {
+      display: flex;
+      margin: 0 0 0 .24rem;
+      input {
+        color: #9b9b9b;
+        font-size: .3rem;
+        width: 6rem;
+        height: .7rem;
+        line-height: .7rem;
+        padding: 0 0 0 .3rem;
+        border-radius: .35rem;
+        box-sizing: border-box;
+        background:rgba(242, 242, 242, 1);
+      }
+      span {
+        flex: 1;
+        color: #9b9b9b;
+        font-size: .28rem;
+        text-align: center;
+        line-height: .7rem;
+      }
+    }
+    .content {
+      margin: .3rem;
+      .title {
+        color: #3c3c3c;
+        font-size: .26rem;
+        line-height: .4rem;
+        margin: 0 0 .2rem 0;
+      }
+      ul {
+        width: 100%;
+        text-align: left;
+        li {
+          display: inline-block;
+          vertical-align: middle;
+          color: #3c3c3c;
+          font-size: .26rem;
+          height: .6rem;
+          line-height: .6rem;
+          padding: 0 .4rem;
+          margin: 0 .2rem .2rem 0;
+          border-radius: .3rem;
+          background:rgba(242, 242, 242, 1);
+        }
+      }
+    }
+  }
+</style>
+
+<template>
+  <div class="input-search">
+    <div class="header">
+      <input v-model="search" type="text" placeholder="网页设计">
+      <span @click="search = ''">取消</span>
+    </div>
+    <div class="content">
+      <div class="title">历史搜索</div>
+      <ul>
+        <li>平面设计</li>
+        <li>客服</li>
+        <li>XLY2019</li>
+        <li>电商设计</li>
+        <li>客服</li>
+      </ul>
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  name: 'search',
+  data () {
+    return {
+      search: ''
+    }
+  }
+}
+</script>

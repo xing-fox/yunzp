@@ -72,6 +72,11 @@
       font-size: .32rem;
       height: .5rem;
     }
+    .weui-cell {
+      padding: 0;
+      height: .5rem;
+      line-height: .5rem;
+    }
     .weui-cell__ft {
       padding-right: 0;
       &:after,

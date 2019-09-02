@@ -65,10 +65,10 @@
     <div class="content">
       <div class="phone">
         <span class="color1">6位验证码已发送</span>
-        <span class="color2">0086 18226626731</span>
+        <span class="color2">0086 {{ $route.query.tele }}</span>
       </div>
       <label for="vertify-code">
-        <input type="text" placeholder="请输入验证码">
+        <input v-model="code" type="text" placeholder="请输入验证码">
       </label>
       <div class="resend">
         <span>重新发送 (60s)</span>
@@ -78,7 +78,23 @@
 </template>
 
 <script>
+import { Getcode } from '@/fetch/api'
 export default {
-  name: 'GetCode'
+  name: 'GetCode',
+  VertifyLogin () {
+    return this.code
+  },
+  data () {
+    return {
+      code: ''
+    }
+  },
+  mounted () {
+    Getcode({
+      mobile: this.$route.query.tele
+    }).then(res => {
+      console.log(res)
+    })
+  }
 }
 </script>

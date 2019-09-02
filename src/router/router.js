@@ -29,6 +29,14 @@ export default [
     ]
   },
   {
+    path: '/searchpage',
+    name: 'Search',
+    component: resolve => require(['@/view/input-search'], resolve),
+    meta: {
+      title: '搜索页面'
+    }
+  },
+  {
     path: '/login',
     name: 'Login',
     component: resolve => require(['@/view/signIn/login'], resolve),
