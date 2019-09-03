@@ -166,19 +166,35 @@
           <img src="../../icon/me/icon_server.png">
           <span>联系客服</span>
         </li>
+        <li @click="signOut">
+          <img src="../../icon/me/icon_close.png">
+          <span>退出登录</span>
+        </li>
       </ul>
     </div>
   </div>
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapMutations } from 'vuex'
+import { Loginout } from '@/fetch/api'
 export default {
   name: 'Me',
   computed: mapState({
     UserInfo: state => state.Login.LoginInfo
   }),
   methods: {
+    ...mapMutations([
+      'StoreLoginInfo'
+    ]),
+    signOut () {
+      Loginout().then(res => {
+        if (res.code === 200) {
+          this.StoreLoginInfo({})
+          this.$vux.toast.text('已退出登录')
+        }
+      })
+    },
     loginInFunc () {
       this.$router.push({
         path: '/login'

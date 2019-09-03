@@ -53,7 +53,22 @@
         font-size: .28rem;
         height: .5rem;
         line-height: .5rem;
-        margin: .36rem 0 0 0;
+        margin: .1rem 0 0 0;
+      }
+      .submit {
+        color: #fff;
+        font-size: .36rem;
+        width: 6rem;
+        height: .9rem;
+        line-height: .9rem;
+        margin: .7rem auto 1.3rem;
+        border-radius: .45rem;
+        text-align: center;
+        background:rgba(0, 137, 249, .5);
+        &.active {
+          pointer-events: fill;
+          background: rgba(0, 137, 249, 1);
+        }
       }
     }
   }
@@ -70,15 +85,19 @@
       <label for="vertify-code">
         <input v-model="code" type="text" placeholder="请输入验证码">
       </label>
-      <div class="resend">
-        <span>重新发送 (60s)</span>
+      <div class="resend" @click="setTimeFunc">
+        <span v-if="time == 0" @click="countTime">重新发送</span>
+        <span v-else>({{ time }}s)</span>
+      </div>
+      <div :class="{submit: true, active: VertifyLogin}" @click="checkCodeFunc">
+        <span>验证码验证</span>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import { Getcode } from '@/fetch/api'
+import { Getcode, Checkcode } from '@/fetch/api'
 export default {
   name: 'GetCode',
   VertifyLogin () {
@@ -86,15 +105,49 @@ export default {
   },
   data () {
     return {
-      code: ''
+      code: '',
+      time: 60,
+      setTime: ''
+    }
+  },
+  computed: {
+    VertifyLogin () {
+      return this.code
     }
   },
   mounted () {
-    Getcode({
-      mobile: this.$route.query.tele
-    }).then(res => {
-      console.log(res)
-    })
+    this.countTime()
+  },
+  methods: {
+    countTime () {
+      Getcode({
+        mobile: this.$route.query.tele
+      }).then(res => {
+        console.log(res)
+      })
+      this.setTime = setInterval(() => {
+        this.time--
+        if (this.time === 0) clearInterval(this.setTime)
+      }, 1000)
+    },
+    setTimeFunc () {},
+    checkCodeFunc () {
+      Checkcode({
+        mobile: this.$route.query.tele,
+        verification_code: this.code
+      }).then(res => {
+        if (res.code === 200) {
+          this.$router.push({
+            path: '/resetpwd',
+            query: {
+              tele: this.$route.query.tele
+            }
+          })
+        } else {
+          this.$vux.toast.text(res.msg)
+        }
+      })
+    }
   }
 }
 </script>

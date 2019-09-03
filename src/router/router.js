@@ -30,7 +30,7 @@ export default [
   },
   {
     path: '/searchpage',
-    name: 'Search',
+    name: 'Searchpage',
     component: resolve => require(['@/view/input-search'], resolve),
     meta: {
       title: '搜索页面'

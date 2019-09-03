@@ -183,6 +183,12 @@ export default {
         path: url
       })
     }
+  },
+  mounted () {
+    let RouteArr = ['/home', '/search', '', '/me']
+    RouteArr.map((item, index) => {
+      if (item === this.$route.path) this.Flag = index
+    })
   }
 }
 </script>

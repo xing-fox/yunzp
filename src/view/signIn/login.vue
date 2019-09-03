@@ -76,7 +76,7 @@
         <input v-model="username" type="text" placeholder="请输入用户名/手机号">
       </label>
       <label for="account">
-        <input v-model="password" type="text" placeholder="请输入密码">
+        <input v-model="password" type="password" placeholder="请输入密码">
       </label>
       <div class="forget-password">
         <router-link to="/forgetpwd">

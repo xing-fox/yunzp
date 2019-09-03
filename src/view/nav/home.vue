@@ -127,7 +127,7 @@
             span {
               font-size: .28rem;
               &.intro {
-                flex: 2;
+                flex: 1.5;
                 color: #3c3c3c;
               }
               &.money {
@@ -202,9 +202,6 @@
         display: flex;
         width: 100%;
         margin: .15rem 0 0 0;
-        ul {
-          width: 100%;
-        }
       }
     }
   }
@@ -263,15 +260,10 @@
         <div class="title" />
         <div class="swiper-container-1" ref="swiperContainer1">
           <div class="swiper-wrapper">
-            <div class="swiper-slide">
-              <span class="intro">张**雇佣李**</span>
-              <span class="money">300元</span>
-              <span class="time">10小时</span>
-            </div>
-            <div class="swiper-slide">
-              <span class="intro">张**雇佣李**</span>
-              <span class="money">300元</span>
-              <span class="time">10小时</span>
+            <div class="swiper-slide" v-for="(item, index) in workType" :key="index">
+              <span class="intro">{{ item.desc }}</span>
+              <span class="money">{{ item.amount }}元</span>
+              <span class="time">{{ item.add_time }}</span>
             </div>
           </div>
         </div>
@@ -284,13 +276,11 @@
       <div class="main-title">为您推荐人才</div>
       <div class="main-nav wrapper" ref="navScroll">
         <ul ref="navContent">
-          <li ref="navItem" v-for="(list, eq) in navType" :key="eq" :class="{active: eq == navTypeIndex}">{{ list }}</li>
+          <li ref="navItem" v-for="(list, eq) in recommendData" :key="eq" :class="{active: eq == navTypeIndex}" @click="choiseRecommend(eq)">{{ list.name }}</li>
         </ul>
       </div>
-      <div class="main-list">
-        <ul>
-          <List />
-        </ul>
+      <div class="main-list" v-if="listData">
+        <List :Data="listData" />
       </div>
     </div>
   </div>
@@ -300,6 +290,7 @@
 import Swiper from 'Swiper'
 import BScroll from 'better-scroll'
 import List from '@/components/list'
+import { Getworktype, Employstate, RecommendData } from '@/fetch/api'
 export default {
   name: 'Home',
   data () {
@@ -338,27 +329,16 @@ export default {
         }
       ],
       navTypeIndex: 0,
-      navType: ['平面设计', '新媒体运营', '电话销售', '文案撰写', '电话销售', '新媒体运营']
+      navType: ['平面设计', '新媒体运营', '电话销售', '文案撰写', '电话销售', '新媒体运营'],
+      workType: [],
+      recommendData: [],
+      listData: []
     }
   },
   components: {
     List
   },
   mounted () {
-    // nav滚动
-    this.$refs.navContent.style.width = (() => {
-      let width = 0
-      for (let i = 0; i < this.navType.length; i++) {
-        width += this.$refs.navItem[i].getBoundingClientRect().width
-      }
-      return width + 'px'
-    })()
-    this.BScroll = new BScroll(this.$refs.navScroll, {
-      startX: 0,
-      click: true,
-      scrollX: true,
-      scrollY: false
-    })
     // banner
     this.Swiper = new Swiper(this.$refs.swiperContainer, {
       direction: 'horizontal',
@@ -367,10 +347,47 @@ export default {
         el: '.swiper-pagination'
       }
     })
-    // 雇佣
-    this.Swiper1 = new Swiper(this.$refs.swiperContainer1, {
-      direction: 'vertical',
-      autoplay: true
+    // 推荐人才
+    RecommendData().then(res => {
+      if (res.code === 200) {
+        this.recommendData = res.data
+        this.listData = this.recommendData[this.navTypeIndex].member_list
+      }
+    }).then(() => {
+      // nav滚动
+      this.$refs.navContent.style.width = (() => {
+        let width = 0
+        for (let i = 0; i < this.navType.length; i++) {
+          width += this.$refs.navItem[i].getBoundingClientRect().width
+        }
+        return width + 'px'
+      })()
+      this.BScroll = new BScroll(this.$refs.navScroll, {
+        startX: 0,
+        click: true,
+        scrollX: true,
+        scrollY: false
+      })
+    })
+    // 获取工种类型
+    Getworktype().then(res => {
+      if (res.code === 200) {
+        // res.data.map(item => {
+        //   console.log(item)
+        // })
+      }
+    })
+    // 雇佣动态
+    Employstate().then(res => {
+      if (res.code === 200) {
+        this.workType = res.data
+      }
+    }).then(() => {
+      // 雇佣
+      this.Swiper1 = new Swiper(this.$refs.swiperContainer1, {
+        direction: 'vertical',
+        autoplay: true
+      })
     })
   },
   methods: {
@@ -378,6 +395,10 @@ export default {
       this.$router.push({
         path: '/searchpage'
       })
+    },
+    choiseRecommend (arg) {
+      this.navTypeIndex = arg
+      this.listData = this.recommendData[arg].member_list
     }
   }
 }

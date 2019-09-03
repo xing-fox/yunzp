@@ -28,12 +28,14 @@
       }
     }
     .content {
-      margin: .3rem;
+      margin: .5rem .3rem 0;
       .title {
         color: #3c3c3c;
         font-size: .26rem;
+        font-weight: bold;
         line-height: .4rem;
         margin: 0 0 .2rem 0;
+        text-align: left;
       }
       ul {
         width: 100%;
@@ -45,7 +47,7 @@
           font-size: .26rem;
           height: .6rem;
           line-height: .6rem;
-          padding: 0 .4rem;
+          padding: 0 .3rem;
           margin: 0 .2rem .2rem 0;
           border-radius: .3rem;
           background:rgba(242, 242, 242, 1);

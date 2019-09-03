@@ -4,7 +4,6 @@
     font-size: 0;
     width: 100%;
     .content {
-      display: none;
       padding: 1.28rem .7rem 0 .7rem;
       .title {
         color: #222;
@@ -38,6 +37,10 @@
         border-radius: .45rem;
         text-align: center;
         background:rgba(0, 137, 249, .5);
+        &.active {
+          pointer-events: fill;
+          background: rgba(0, 137, 249, 1);
+        }
       }
     }
     .content1 {
@@ -71,7 +74,7 @@
         margin: .7rem auto 1.3rem;
         border-radius: .45rem;
         text-align: center;
-        background:rgba(0, 137, 249, 1);
+        background: rgba(0, 137, 249, 1);
       }
     }
   }
@@ -79,22 +82,22 @@
 
 <template>
   <div class="reset-pwd">
-    <div class="content">
+    <div class="content" v-if="step == 0">
       <div class="title">重置密码</div>
       <label for="pwd">
-        <input type="text" placeholder="请输入新密码">
+        <input v-model="password" type="password" placeholder="请输入新密码">
       </label>
-      <div class="submit">
+      <div :class="{submit: true, active: VertifyLogin}" @click="sureFunc">
         <span>确认</span>
       </div>
     </div>
-    <div class="content1">
+    <div class="content1" v-else>
       <div class="title">重置成功</div>
       <i class="success"></i>
       <div class="tip">
         <span>密码重置成功，请登录</span>
       </div>
-      <div class="submit">
+      <div class="submit" @click="returnFunc">
         <span>回到登录页</span>
       </div>
     </div>
@@ -102,7 +105,38 @@
 </template>
 
 <script>
+import { Resetpassword } from '@/fetch/api'
 export default {
-  name: 'ResetPwd'
+  name: 'ResetPwd',
+  data () {
+    return {
+      step: 0,
+      password: ''
+    }
+  },
+  computed: {
+    VertifyLogin () {
+      return this.password
+    }
+  },
+  methods: {
+    sureFunc () {
+      Resetpassword({
+        mobile: this.$route.query.tele,
+        pass_word: this.password
+      }).then(res => {
+        if (res.code === 200) {
+          this.step = 1
+        } else {
+          this.$vux.toast.text(res.msg)
+        }
+      })
+    },
+    returnFunc () {
+      this.$router.push({
+        path: '/login'
+      })
+    }
+  }
 }
 </script>

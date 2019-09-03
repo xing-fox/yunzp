@@ -39,10 +39,11 @@ const webpackConfig = {
       '@': resolve('src'),
     }
   },
-  externals: {
-    'Swiper': 'Swiper',
-    'moment': 'moment'
-  },
+  externals: [
+    'Swiper',
+    'moment',
+    'vue-upload-component'
+  ],
   module: {
     rules: [
       ...(config.dev.useEslint ? [createLintingRule()] : []),
