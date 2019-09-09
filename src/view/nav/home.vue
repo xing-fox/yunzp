@@ -251,8 +251,8 @@
       <ul>
         <li v-for="(item, index) in navList" :key="index">
           <div class="list">
-            <img :src="item.img">
-            <p>{{ item.value }}</p>
+            <img :src="item.icon">
+            <p>{{ item.name }}</p>
           </div>
         </li>
       </ul>
@@ -299,34 +299,34 @@ export default {
       Swiper1: '',
       BScroll: '',
       navList: [
-        {
-          img: require('@/icon/home/wabj.png'),
-          value: '文案编辑'
-        }, {
-          img: require('@/icon/home/sjmg.png'),
-          value: '设计美工'
-        }, {
-          img: require('@/icon/home/xsyy.png'),
-          value: '线上运营'
-        }, {
-          img: require('@/icon/home/zxkf.png'),
-          value: '在线客服'
-        }, {
-          img: require('@/icon/home/zxxs.png'),
-          value: '在线销售'
-        }, {
-          img: require('@/icon/home/spzz.png'),
-          value: '视频制作'
-        }, {
-          img: require('@/icon/home/itjs.png'),
-          value: 'IT技术'
-        }, {
-          img: require('@/icon/home/dzxq.png'),
-          value: '定制需求'
-        }, {
-          img: require('@/icon/home/qbfl.png'),
-          value: '全部分类'
-        }
+        // {
+        //   img: require('@/icon/home/wabj.png'),
+        //   value: '文案编辑'
+        // }, {
+        //   img: require('@/icon/home/sjmg.png'),
+        //   value: '设计美工'
+        // }, {
+        //   img: require('@/icon/home/xsyy.png'),
+        //   value: '线上运营'
+        // }, {
+        //   img: require('@/icon/home/zxkf.png'),
+        //   value: '在线客服'
+        // }, {
+        //   img: require('@/icon/home/zxxs.png'),
+        //   value: '在线销售'
+        // }, {
+        //   img: require('@/icon/home/spzz.png'),
+        //   value: '视频制作'
+        // }, {
+        //   img: require('@/icon/home/itjs.png'),
+        //   value: 'IT技术'
+        // }, {
+        //   img: require('@/icon/home/dzxq.png'),
+        //   value: '定制需求'
+        // }, {
+        //   img: require('@/icon/home/qbfl.png'),
+        //   value: '全部分类'
+        // }
       ],
       navTypeIndex: 0,
       navType: ['平面设计', '新媒体运营', '电话销售', '文案撰写', '电话销售', '新媒体运营'],
@@ -372,6 +372,7 @@ export default {
     // 获取工种类型
     Getworktype().then(res => {
       if (res.code === 200) {
+        this.navList = res.data
         // res.data.map(item => {
         //   console.log(item)
         // })
