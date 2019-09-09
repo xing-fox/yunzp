@@ -1,5 +1,7 @@
 import {Post} from './axios.js'
 
+/* ----------------首页接口------------------- */
+
 /**
  * @param 用户登陆接口(用户名/手机号码)
  */
@@ -63,4 +65,46 @@ export const Employstate = (param) => {
  */
 export const RecommendData = (param) => {
   return Post('/mobile/index/recommend_index', param)
+}
+
+/**
+ * @param 我的钱包（个人中心接口）
+ */
+export const Mywallet = (param) => {
+  return Post('/mobile/bossmember/my_wallet', param)
+}
+
+/**
+ * @param 交易记录（个人中心接口）
+ */
+export const transactionrecord = (param) => {
+  return Post('/mobile/bossmember/transaction_record', param)
+}
+
+/**
+ * @param 雇佣记录（个人中心接口）
+ */
+export const Employeelist = (param) => {
+  return Post('/mobile/bossmember/employee_list', param)
+}
+
+/**
+ * @param 我的收藏（个人中心接口）
+ */
+export const Collectionlist = (param) => {
+  return Post('/mobile/bossmember/collection_list', param)
+}
+
+/**
+ * @param 我的收藏详情（个人中心接口）
+ */
+export const Resumeinfo = (param) => {
+  return Post('/mobile/bossmember/resume_info', param)
+}
+
+/**
+ * @param 已收简历（个人中心接口）
+ */
+export const Resumelist = (param) => {
+  return Post('/mobile/bossmember/resume_list', param)
 }

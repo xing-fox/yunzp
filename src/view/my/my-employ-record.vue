@@ -63,10 +63,10 @@
         <ul ref="navContent">
           <li
             ref="navItem"
-            v-for="(list, eq) in navType"
+            v-for="(list, eq) in navList"
             :key="eq"
             :class="{active: eq == navTypeIndex}"
-          >{{ list }}</li>
+          >{{ list.name }}</li>
         </ul>
       </div>
       <staff-list :NoButton="false" :FromTrade="true" />
@@ -77,31 +77,38 @@
 <script>
 import BScroll from 'better-scroll'
 import StaffList from '@/components/my/my-staff-list'
+import { Getworktype } from '@/fetch/api'
 export default {
   name: 'MyEmployRecord',
   data () {
     return {
       navTypeIndex: 0,
-      navType: ['平面设计', '新媒体运营', '电话销售', '文案撰写', '电话销售', '新媒体运营']
+      navList: []
     }
   },
   components: {
     StaffList
   },
   mounted () {
-    // nav滚动
-    this.$refs.navContent.style.width = (() => {
-      let width = 0
-      for (let i = 0; i < this.navType.length; i++) {
-        width += this.$refs.navItem[i].getBoundingClientRect().width
+    Getworktype().then(res => {
+      if (res.code === 200) {
+        this.navList = res.data
       }
-      return width + 'px'
-    })()
-    this.BScroll = new BScroll(this.$refs.navScroll, {
-      startX: 0,
-      click: true,
-      scrollX: true,
-      scrollY: false
+    }).then(() => {
+      // nav滚动
+      this.$refs.navContent.style.width = (() => {
+        let width = 0
+        for (let i = 0; i < this.navList.length; i++) {
+          width += this.$refs.navItem[i].getBoundingClientRect().width
+        }
+        return width + 'px'
+      })()
+      this.BScroll = new BScroll(this.$refs.navScroll, {
+        startX: 0,
+        click: true,
+        scrollX: true,
+        scrollY: false
+      })
     })
   }
 }

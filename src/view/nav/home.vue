@@ -298,38 +298,9 @@ export default {
       Swiper: '',
       Swiper1: '',
       BScroll: '',
-      navList: [
-        // {
-        //   img: require('@/icon/home/wabj.png'),
-        //   value: '文案编辑'
-        // }, {
-        //   img: require('@/icon/home/sjmg.png'),
-        //   value: '设计美工'
-        // }, {
-        //   img: require('@/icon/home/xsyy.png'),
-        //   value: '线上运营'
-        // }, {
-        //   img: require('@/icon/home/zxkf.png'),
-        //   value: '在线客服'
-        // }, {
-        //   img: require('@/icon/home/zxxs.png'),
-        //   value: '在线销售'
-        // }, {
-        //   img: require('@/icon/home/spzz.png'),
-        //   value: '视频制作'
-        // }, {
-        //   img: require('@/icon/home/itjs.png'),
-        //   value: 'IT技术'
-        // }, {
-        //   img: require('@/icon/home/dzxq.png'),
-        //   value: '定制需求'
-        // }, {
-        //   img: require('@/icon/home/qbfl.png'),
-        //   value: '全部分类'
-        // }
-      ],
+      navList: [],
       navTypeIndex: 0,
-      navType: ['平面设计', '新媒体运营', '电话销售', '文案撰写', '电话销售', '新媒体运营'],
+      // navType: ['平面设计', '新媒体运营', '电话销售', '文案撰写', '电话销售', '新媒体运营'],
       workType: [],
       recommendData: [],
       listData: []
@@ -357,7 +328,7 @@ export default {
       // nav滚动
       this.$refs.navContent.style.width = (() => {
         let width = 0
-        for (let i = 0; i < this.navType.length; i++) {
+        for (let i = 0; i < this.recommendData.length; i++) {
           width += this.$refs.navItem[i].getBoundingClientRect().width
         }
         return width + 'px'
@@ -373,9 +344,6 @@ export default {
     Getworktype().then(res => {
       if (res.code === 200) {
         this.navList = res.data
-        // res.data.map(item => {
-        //   console.log(item)
-        // })
       }
     })
     // 雇佣动态
