@@ -64,3 +64,12 @@ export const Employstate = (param) => {
 export const RecommendData = (param) => {
   return Post('/mobile/index/recommend_index', param)
 }
+
+/* ----------------交易记录------------------- */
+
+/**
+ * @param 交易记录
+ */
+export const transactionRecord = (param) => {
+  return Post('/mobile/bossmember/transaction_record', param)
+}

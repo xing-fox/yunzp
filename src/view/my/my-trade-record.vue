@@ -75,6 +75,9 @@
 </template>
 
 <script>
+import {
+  transactionRecord
+} from '@/fetch/api'
 import BScroll from 'better-scroll'
 import StaffList from '@/components/my/my-staff-list'
 export default {
@@ -90,6 +93,11 @@ export default {
   },
   mounted () {
     // nav滚动
+    transactionRecord({
+      user_id: 1342
+    }).then(res => {
+      console.log(res)
+    })
     this.$refs.navContent.style.width = (() => {
       let width = 0
       for (let i = 0; i < this.navType.length; i++) {
