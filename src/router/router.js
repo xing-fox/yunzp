@@ -19,6 +19,13 @@ export default [
           title: '找人才'
         }
       }, {
+        path: 'news',
+        name: 'News',
+        component: resolve => require(['@/view/nav/news'], resolve),
+        meta: {
+          title: '消息'
+        }
+      }, {
         path: 'me',
         name: 'Me',
         component: resolve => require(['@/view/nav/me'], resolve),

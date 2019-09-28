@@ -54,6 +54,13 @@ export const Getworktype = (param) => {
 }
 
 /**
+ * @param 搜索接口
+ */
+export const Abilityindex = (param) => {
+  return Post('/mobile/index/ability_index', param)
+}
+
+/**
  * @param 雇佣动态
  */
 export const Employstate = (param) => {

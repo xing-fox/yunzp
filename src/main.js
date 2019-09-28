@@ -12,6 +12,7 @@ Vue.use(ConfirmPlugin)
 Vue.use(LoadingPlugin)
 Vue.prototype.$moment = moment
 Vue.config.productionTip = false
+
 if ('addEventListener' in document) {
   document.addEventListener('DOMContentLoaded', () => {
     fastclick.attach(document.body)

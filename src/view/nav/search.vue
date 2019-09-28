@@ -99,6 +99,10 @@
           border-radius: 0.06rem;
           vertical-align: middle;
           background: rgba(242, 242, 242, 1);
+          &.active {
+            color: #fff;
+            background: #0089f9;
+          }
         }
       }
     }
@@ -155,9 +159,6 @@
       display: flex;
       width: 100%;
       margin: 0.15rem 0 0 0;
-      ul {
-        width: 100%;
-      }
     }
   }
 }
@@ -193,14 +194,13 @@
             v-for="(list, eq) in navType"
             :key="eq"
             :class="{active: eq == navTypeIndex}"
-          >{{ list }}</li>
+            @click="ChangeNavFunc(eq)"
+          >{{ list.name }}</li>
         </ul>
       </div>
-      <div class="main-nav-details">
+      <div class="main-nav-details" v-if="navType[navTypeIndex]">
         <ul>
-          <li>电商美工</li>
-          <li>网站设计</li>
-          <li>平面设计</li>
+          <li v-for="(item, index) in navType[navTypeIndex].data" :class="{active: navTypeChildIndex == index}" :key="index" @click="childNavFunc(index)">{{ item.name }}</li>
         </ul>
       </div>
       <div class="main-nav-search">
@@ -225,9 +225,7 @@
         </ul>
       </div>
       <div class="main-list">
-        <ul>
-          <List/>
-        </ul>
+        <List :Data="listData" />
       </div>
     </div>
   </div>
@@ -237,62 +235,69 @@
 import BScroll from 'better-scroll'
 import List from '@/components/list'
 import { PopupPicker } from 'vux'
+import {
+  Getworktype,
+  Abilityindex } from '@/fetch/api'
 export default {
   name: 'Search',
   data () {
     return {
       navSearchIndex: -1, // 综合排序索引值
-      navSearch: [{
-        title: '价格',
-        val: ['1'],
-        data: [{
-          value: '1',
-          name: '1000'
+      navSearch: [
+        {
+          title: '价格',
+          val: ['1'],
+          data: [{
+            value: '1',
+            name: '1000'
+          }, {
+            value: '2',
+            name: '2000'
+          }, {
+            value: '3',
+            name: '3000'
+          }, {
+            value: '4',
+            name: '5000'
+          }]
         }, {
-          value: '2',
-          name: '2000'
+          title: '经验',
+          val: ['2'],
+          data: [{
+            value: '1',
+            name: '1年一下'
+          }, {
+            value: '2',
+            name: '2年'
+          }, {
+            value: '3',
+            name: '3年'
+          }, {
+            value: '4',
+            name: '4年'
+          }, {
+            value: '5',
+            name: '5年及以上'
+          }]
         }, {
-          value: '3',
-          name: '3000'
-        }, {
-          value: '4',
-          name: '5000'
-        }]
-      }, {
-        title: '经验',
-        val: ['2'],
-        data: [{
-          value: '1',
-          name: '1年一下'
-        }, {
-          value: '2',
-          name: '2年'
-        }, {
-          value: '3',
-          name: '3年'
-        }, {
-          value: '4',
-          name: '4年'
-        }, {
-          value: '5',
-          name: '5年及以上'
-        }]
-      }, {
-        title: '评价',
-        val: ['3'],
-        data: [{
-          value: '1',
-          name: '好评'
-        }, {
-          value: '2',
-          name: '中评'
-        }, {
-          value: '3',
-          name: '差评'
-        }]
-      }],
-      navTypeIndex: 0,
-      navType: ['平面设计', '新媒体运营', '电话销售', '文案撰写', '电话销售', '新媒体运营']
+          title: '评价',
+          val: ['3'],
+          data: [{
+            value: '1',
+            name: '好评'
+          }, {
+            value: '2',
+            name: '中评'
+          }, {
+            value: '3',
+            name: '差评'
+          }]
+        }
+      ],
+      navTypeIndex: 0, // 父导航index
+      navTypeChildIndex: 0, // 子导航index
+      navType: [],
+      listData: [] // list数据信息
     }
   },
   components: {
@@ -300,24 +305,64 @@ export default {
     PopupPicker
   },
   methods: {
+    /**
+     * 搜索接口
+     */
     searchFunc (arg) {
       this.navSearchIndex = arg
+    },
+    /**
+     * 请求数据
+     */
+    getData (id) {
+      Abilityindex({
+        work_type: id,
+        field: 'salary', // 按价格 salary，按价格 experience，按评价evaluate
+        sort: 'sort',
+        page: 1
+      }).then(res => {
+        if (res.code === 200) {
+          this.listData = res.data
+        }
+      })
+    },
+    /**
+     * 切换导航
+     */
+    ChangeNavFunc (eq) {
+      this.navTypeIndex = eq
+      this.navTypeChildIndex = 0
+    },
+    /**
+     * 子菜单导航切换
+     */
+    childNavFunc (eq) {
+      this.navTypeChildIndex = eq
+      this.getData(this.navType[this.navTypeIndex].data[eq].id)
     }
   },
   mounted () {
-    // nav滚动
-    this.$refs.navContent.style.width = (() => {
-      let width = 0
-      for (let i = 0; i < this.navType.length; i++) {
-        width += this.$refs.navItem[i].getBoundingClientRect().width
+    // 获取所有工种
+    Getworktype().then(res => {
+      if (res.code === 200) {
+        this.navType = res.data
+        this.getData(res.data[this.navTypeIndex].data[0].id)
       }
-      return width + 'px'
-    })()
-    this.BScroll = new BScroll(this.$refs.navScroll, {
-      startX: 0,
-      click: true,
-      scrollX: true,
-      scrollY: false
+    }).then(() => {
+      // nav滚动
+      this.$refs.navContent.style.width = (() => {
+        let width = 0
+        for (let i = 0; i < this.navType.length; i++) {
+          width += this.$refs.navItem[i].getBoundingClientRect().width
+        }
+        return width + 'px'
+      })()
+      this.BScroll = new BScroll(this.$refs.navScroll, {
+        startX: 0,
+        click: true,
+        scrollX: true,
+        scrollY: false
+      })
     })
   }
 }
