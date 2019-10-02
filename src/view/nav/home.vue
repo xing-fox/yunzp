@@ -203,6 +203,17 @@
         width: 100%;
         margin: .15rem 0 0 0;
       }
+      .main-no-list {
+        color: #3C3C3C;
+        font-size: .28rem;
+        width: 100%;
+        padding: .5rem 0;
+        text-align: center;
+        img {
+          width: 2rem;
+          margin: 0 0 .1rem 0;
+        }
+      }
     }
   }
 </style>
@@ -279,8 +290,12 @@
           <li ref="navItem" v-for="(list, eq) in recommendData" :key="eq" :class="{active: eq == navTypeIndex}" @click="choiseRecommend(eq)">{{ list.name }}</li>
         </ul>
       </div>
-      <div class="main-list" v-if="listData">
+      <div class="main-list" v-if="listData.length">
         <List :Data="listData" />
+      </div>
+      <div class="main-no-list" v-else>
+        <img src="../../icon/resume-data.png">
+        <div>暂无数据</div>
       </div>
     </div>
   </div>

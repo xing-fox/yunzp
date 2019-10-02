@@ -132,10 +132,6 @@
             <img src="../../icon/me/my_staff.png">
             <span>我的员工</span>
           </li>
-          <!-- <li>
-            <img src="../../icon/me/my_auth.png">
-            <span>资质认证</span>
-          </li> -->
         </ul>
       </div>
     </div>

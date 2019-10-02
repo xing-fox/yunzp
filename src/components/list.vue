@@ -114,28 +114,29 @@
 <template>
   <ul>
     <li v-for="(item, index) in Data" :key="index">
-      <img src="../icon/home/man.png">
+      <img :src="item.avatar">
       <div class="intro">
         <div class="intro-list">
           <span class="name">{{ item.user_login }}</span>
-          <span class="money">5000元/月</span>
+          <span class="money">{{ item.yuexin }}元/月</span>
         </div>
         <div class="intro-list">
           <i class="icon-work" />
-          <span class="work-time">三年工作经验</span>
-          <span class="address">北京</span>
+          <span class="work-time">{{ item.gongling }}年工作经验</span>
+          <span class="address">{{ item.province }}</span>
         </div>
         <div class="intro-list">
           <i class="icon-power" />
           <span class="work-power">能力值</span>
-          <i class="power-type power-type-1" />
-          <i class="power-type power-type-2" />
-          <i class="power-type power-type-3" />
+          <i v-for="(list, eq) in Number(item.level)" :key="eq" class="power-type power-type-1" />
+          <!-- <i class="power-type power-type-2" />
+          <i class="power-type power-type-3" /> -->
         </div>
         <div class="intro-list">
-          <span class="work-type color1">网页设计</span>
+          <span v-for="(list, eq) in item.tag" :key="eq" v-if="eq < 3" class="work-type" :class="'color' + (eq + 1)">{{ list }}</span>
+          <!-- <span class="work-type color1">网页设计</span>
           <span class="work-type color2">banner</span>
-          <span class="work-type color3">电商设计</span>
+          <span class="work-type color3">电商设计</span> -->
         </div>
       </div>
     </li>
