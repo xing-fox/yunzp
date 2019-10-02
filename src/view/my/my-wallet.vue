@@ -61,11 +61,11 @@
     <div class="bg">
       <ul>
         <li>
-          <div class="money">¥3223.12</div>
+          <div class="money">¥{{ canUseMoney }}</div>
           <div class="title">可用余额</div>
         </li>
         <li>
-          <div class="money color">¥3223.12</div>
+          <div class="money color">¥{{ frozenMoney }}</div>
           <div class="title">冻结余额</div>
         </li>
     </ul>
@@ -74,7 +74,20 @@
 </template>
 
 <script>
+import { Mywallet } from '@/fetch/api'
 export default {
-  name: 'MyWallet'
+  name: 'MyWallet',
+  data () {
+    return {
+      canUseMoney: 0,
+      frozenMoney: 0
+    }
+  },
+  mounted () {
+    Mywallet().then(res => {
+      this.canUseMoney = res.data.money
+      this.frozenMoney = res.data.freeze
+    })
+  }
 }
 </script>

@@ -106,25 +106,25 @@
 <template>
   <div class="my-staff-list">
     <ul>
-      <li>
+      <li v-for="(item, index) in Data" :key="index">
         <div class="li-content">
           <div class="c-left">
-            <img src="../../icon/home/man.png">
+            <img :src="item.avator">
           </div>
           <div class="c-right">
             <div class="title">
-              <span>哪吒（2323）</span>
+              <span>{{ item.xingming }}</span>
               <!-- <span class="type type-success">交易成功</span> -->
               <span v-if="!FromTrade && !FromStaff" class="type type-fail">退款成功</span>
             </div>
             <div class="time">
-              雇佣周期：<span>2019/12/12-2020/01/01</span>
+              雇佣周期：<span>{{ item.start_time }}--{{ item.end_time }}</span>
             </div>
             <div class="money" v-if="!FromTrade">
-              托管金额：<span>¥1200</span>
+              托管金额：<span>¥{{ item.gongzi }}</span>
             </div>
             <div class="money" v-if="FromTrade">
-              托管金额：<span>托管工资</span>
+              托管金额：<span>¥{{ item.gongzi }}</span>
             </div>
           </div>
         </div>
@@ -169,6 +169,9 @@ export default {
     FromStaff: {
       type: Boolean,
       default: false
+    },
+    Data: {
+      type: Array
     }
   }
 }
