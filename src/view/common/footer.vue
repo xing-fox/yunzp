@@ -128,11 +128,11 @@
         <i class="search"></i>
         <span>找人才</span>
       </li>
-      <li class="publish" @click="publishStatus=true"></li>
-      <li :class="{active: Flag == 2}" @click="changeRoute(2, '/news')">
+      <!-- <li class="publish" @click="publishStatus=true"></li> -->
+      <!-- <li :class="{active: Flag == 2}" @click="changeRoute(2, '/news')">
         <i class="news"></i>
         <span>消息</span>
-      </li>
+      </li> -->
       <li :class="{active: Flag == 3}" @click="changeRoute(3, '/me')">
         <i class="me"></i>
         <span>我的</span>

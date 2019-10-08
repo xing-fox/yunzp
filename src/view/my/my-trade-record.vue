@@ -76,9 +76,6 @@
 </template>
 
 <script>
-import {
-  transactionRecord
-} from '@/fetch/api'
 import BScroll from 'better-scroll'
 import StaffList from '@/components/my/my-staff-list'
 import { Getworktype, transactionrecord } from '@/fetch/api'

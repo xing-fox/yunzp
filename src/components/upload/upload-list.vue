@@ -1,6 +1,6 @@
 <template>
   <ul :class="[prefixCls + '-list']">
-    <li v-for="file in files" :class="fileCls(file)" @click="handleClick(file)">
+    <li v-for="(file, index) in files" :key="index" :class="fileCls(file)" @click="handleClick(file)">
       <span @click="handlePreview(file)">
         <Icon :type="format(file)"></Icon>
         {{ file.name }}

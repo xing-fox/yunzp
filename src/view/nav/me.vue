@@ -115,7 +115,10 @@
     <div class="header">
       <div class="uers">
         <img src="../../icon/me/user.png" />
-        <i class="photo" />
+        <Upload action="http://59.110.156.243:8043//mobile/member/upload_avatar?user_id=1340">
+          <i class="photo" />
+        </Upload>
+        <!-- <i class="photo" /> -->
         <div class="users-login">
           <div class="title" v-if="!UserInfo.user_login" @click="loginInFunc">登陆注册</div>
           <div class="name" v-else>{{ UserInfo.user_login }}</div>
@@ -130,7 +133,7 @@
           </li>
           <li @click="routeChange('/mystaff')">
             <img src="../../icon/me/my_staff.png">
-            <span>我的员工</span>
+            <span>我的导师</span>
           </li>
         </ul>
       </div>
@@ -142,7 +145,7 @@
           <img src="../../icon/me/icon_money.png">
           <span>交易记录</span>
         </li>
-        <li @click="routeChange('/myemployrecord')">
+        <!-- <li @click="routeChange('/myemployrecord')">
           <img src="../../icon/me/icon_employ.png">
           <span>雇佣记录</span>
         </li>
@@ -154,7 +157,7 @@
           <img src="../../icon/me/icon_collet.png">
           <span>我的收藏</span>
         </li>
-        <!-- <li @click="routeChange('/myresume')">
+        <li @click="routeChange('/myresume')">
           <img src="../../icon/me/icon_invite.png">
           <span>邀请好友</span>
         </li> -->
@@ -173,16 +176,21 @@
 
 <script>
 import { mapState, mapMutations } from 'vuex'
+import Upload from '@/components/upload'
 import { Loginout } from '@/fetch/api'
 export default {
   name: 'Me',
   computed: mapState({
     UserInfo: state => state.Login.LoginInfo
   }),
+  components: {
+    Upload
+  },
   methods: {
     ...mapMutations([
       'StoreLoginInfo'
     ]),
+    // 登录退出
     signOut () {
       Loginout().then(res => {
         if (res.code === 200) {
@@ -191,11 +199,13 @@ export default {
         }
       })
     },
+    // 登录
     loginInFunc () {
       this.$router.push({
         path: '/login'
       })
     },
+    // 路由跳转
     routeChange (path) {
       if (this.UserInfo.user_login) {
         this.$router.push({

@@ -378,13 +378,18 @@
     </div>
     <!-- 雇佣详情 -->
     <Popup :popup-style="{popupStyle}" v-model="employStatus" :is-transparent="true">
-      <resume-employ @closeEmploy="employStatus = false" />
+      <resume-employ @closeEmploy="employStatus = false" @paySure="payStatus = true" />
+    </Popup>
+    <!-- 支付页面 -->
+    <Popup :popup-style="{popupPayStyle}" v-model="payStatus" :is-transparent="true">
+      <pay-way @closeEmploy="payStatus = false" />
     </Popup>
   </div>
 </template>
 
 <script>
 import { Popup } from 'vux'
+import PayWay from '@/components/pay/index'
 import ResumeEmploy from '@/components/employ/index'
 export default {
   name: 'ResumeDetails',
@@ -394,6 +399,10 @@ export default {
       popupStyle: {
         zIndex: 10
       },
+      popupPayStyle: {
+        zIndex: 11
+      },
+      payStatus: false,
       employStatus: false
     }
   },
@@ -404,6 +413,7 @@ export default {
   },
   components: {
     Popup,
+    PayWay,
     ResumeEmploy
   },
   methods: {

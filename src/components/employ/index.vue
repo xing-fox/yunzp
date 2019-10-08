@@ -224,7 +224,7 @@
           </div>
         </div>
       </div>
-      <div class="submit">
+      <div class="submit" @click="$emit('paySure')">
         <span>确认佣金并支付</span>
       </div>
     </div>
