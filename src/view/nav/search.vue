@@ -182,7 +182,7 @@
       <div class="search" @click="changeSearch">
         <i></i>
         <div class="input">
-          网页设计
+          {{ keyWord }}
         </div>
       </div>
     </div>
@@ -301,6 +301,7 @@ export default {
       navTypeIndex: 0, // 父导航index
       // navTypeChildIndex: 0, // 子导航index
       navType: [],
+      keyWord: this.$route.query.keyWord || '', // 关键字
       listData: [] // list数据信息
     }
   },
@@ -329,7 +330,7 @@ export default {
     getData (id) {
       Abilityindex({
         work_type: id,
-        key_word: '', // 搜索关键字
+        key_word: this.keyWord, // 搜索关键字
         experience: this.navSearch[0].val[0], // 经验
         salary: this.navSearch[1].val[0], // 价格
         sort: 'sort',
@@ -367,7 +368,7 @@ export default {
     Getworktype().then(res => {
       if (res.code === 200) {
         this.navType = res.data
-        this.getData(res.data[this.navTypeIndex].parent_id)
+        this.getData(this.keyWord ? '' : res.data[this.navTypeIndex].parent_id)
       }
     }).then(() => {
       // nav滚动

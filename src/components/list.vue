@@ -1,5 +1,6 @@
 <style lang="less" scoped>
   @path: '../icon/home';
+  @path1: '../icon/me';
   ul {
     width: 100%;
     li {
@@ -8,6 +9,10 @@
       img {
         width: 1.86rem;
         height: 2.24rem;
+        background-image: url('@{path1}/user.png');
+        background-size: 1.5rem 1.5rem;
+        background-repeat: no-repeat;
+        background-position: center center;
       }
       .intro {
         flex: 1;
@@ -133,7 +138,14 @@
           <i class="power-type power-type-3" /> -->
         </div>
         <div class="intro-list">
-          <span v-for="(list, eq) in item.tag" :key="eq" v-if="eq < 3" class="work-type" :class="'color' + (eq + 1)">{{ list }}</span>
+          <span
+            v-for="(list, eq) in item.tag"
+            :key="eq"
+            v-show="eq < 3"
+            class="work-type"
+            :class="'color' + (eq + 1)">
+            {{ list }}
+          </span>
         </div>
       </div>
     </li>
@@ -141,14 +153,31 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 export default {
   props: {
     Data: {
       type: Array
     }
   },
+  computed: mapState({
+    userInfo: state => state.Login.LoginInfo
+  }),
   methods: {
     changeRoute (id) {
+      if (!this.userInfo.user_login) {
+        return this.$vux.confirm.show({
+          title: '',
+          content: '您当前还未登录，请先登录?',
+          onCancel: () => {},
+          confirmText: '登录',
+          onConfirm: () => {
+            this.$router.push({
+              path: 'login'
+            })
+          }
+        })
+      }
       this.$router.push({
         path: '/resumedetails',
         query: {

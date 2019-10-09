@@ -19,6 +19,10 @@
           width: 1.3rem;
           height: 1.3rem;
           border-radius: 50%;
+          background-image: url('@{path1}/user.png');
+          background-size: 1rem 1rem;
+          background-repeat: no-repeat;
+          background-position: center center;
         }
         .name {
           color: #fff;
@@ -30,6 +34,9 @@
         .tag {
           color: #fff;
           font-size: .3rem;
+          span {
+            margin: 0 .02rem;
+          }
         }
       }
       ul.evaluate {
@@ -81,6 +88,7 @@
       ul.nav {
         display: flex;
         width: 100%;
+        padding: .2rem 0;
         background: #fff;
         &.fix {
           position: fixed;
@@ -98,7 +106,7 @@
           text-align: center;
           &.active {
             color: #3c3c3c;
-            font-size: .32rem;
+            font-size: .34rem;
             position: relative;
             &:after {
               content: '';
@@ -121,7 +129,7 @@
         font-weight: bold;
         height: .5rem;
         line-height: .5rem;
-        margin: .7rem auto .6rem;
+        margin: .5rem auto .6rem;
         text-align: left;
       }
       ul.box {
@@ -175,6 +183,10 @@
             color: #3c3c3c;
             font-size: .3rem;
             font-weight: bold;
+            span {
+              font-size: .24rem;
+              font-weight: initial;
+            }
           }
           .main {
             color: #3c3c3c;
@@ -186,6 +198,7 @@
     }
     .footer {
       display: flex;
+      justify-content: flex-end;
       width: 100%;
       height: 1.3rem;
       padding: .2rem;
@@ -267,46 +280,54 @@
   <div class="resume-details">
     <div class="header">
       <div class="info">
-        <img src="../icon/home/man.png">
+        <img :src="Data.avatar">
         <div class="name">
-          <span>猫猫（tata4567）</span>
+          <span>{{ Data.xingming }}</span>
         </div>
         <div class="tag">
-          <span>网页设计/Banner/电商设计</span>
+          <span
+            v-for="(item, index) in Data.tag_name"
+            :key="index">
+            {{ item }}</span>
         </div>
       </div>
       <ul class="evaluate">
         <li>
           <div class="title">服务态度</div>
           <div class="score">
-            <i class="full" />
-            <i class="half" />
-            <i class="empty" />
+            <i
+              v-for="(item, index) in Data.service_attitude"
+              :key="index"
+              class="full" />
+            <!-- <i class="half" />
+            <i class="empty" /> -->
           </div>
         </li>
         <li>
-          <div class="title">设计能力</div>
+          <div class="title">技能等级</div>
           <div class="score">
-            <i class="full" />
-            <i class="half" />
-            <i class="empty" />
+            <i
+              v-for="(item, index) in Data.design_capacity"
+              :key="index"
+              class="full" />
           </div>
         </li>
         <li>
           <div class="title">相应态度</div>
           <div class="score">
-            <i class="full" />
-            <i class="half" />
-            <i class="empty" />
+            <i
+              v-for="(item, index) in Data.related_attitude"
+              :key="index"
+              class="full" />
           </div>
         </li>
       </ul>
     </div>
     <div class="content">
       <ul :class="['nav', {fix: scrollTop > compileHeight}]">
-        <li class="active">简历</li>
-        <li>作品(12)</li>
-        <li>评价(15)</li>
+        <li class="active">个人简历</li>
+        <!-- <li>作品(12)</li>
+        <li>评价(15)</li> -->
       </ul>
       <div class="title">
         <span>基本信息</span>
@@ -314,57 +335,46 @@
       <ul class="box">
         <li>
           <span>最高学历：</span>
-          本科
+          {{ Data.xueli | EducatFilter}}
         </li>
         <li>
           <span>工作年限：</span>
-          3年以上
+          {{ Data.gongling }}年以上
         </li>
         <li>
-          <span>出生年份：</span>
-          1989-09-09
+          <span>出生日期：</span>
+          {{ Data.nian }}年 {{ Data.yue }}月
         </li>
         <li>
           <span>所在城市：</span>
-          合肥市
+          {{ Data.address }}
         </li>
-        <li>
+        <!-- <li>
           <span>擅长类目：</span>
           足球/篮球/羽毛球
-        </li>
+        </li> -->
       </ul>
       <div class="title">
         <span>工作经历</span>
       </div>
-      <div class="tree">
-        <div class="time">2017/03-2019/04</div>
+      <div class="tree" v-for="(item, index) in Data.work_history" :key="index">
+        <div class="time">{{ item.start_time }} —— {{ item.end_time }}</div>
         <div class="content">
           <div class="company">
-            春虎愿意官方旗舰店
+            {{ item.CompName }} <span>-- {{ item.PositionName}}</span>
           </div>
           <div class="main">
-            主要负责网页的设计，页面的设计；主要负责网页的设计，页面的设计主要负责网页的设计，页面的设计；主要负责网页的设计，页面的设计
-          </div>
-        </div>
-      </div>
-      <div class="tree">
-        <div class="time">2017/03-2019/04</div>
-        <div class="content">
-          <div class="company">
-            春虎愿意官方旗舰店
-          </div>
-          <div class="main">
-            主要负责网页的设计，页面的设计；主要负责网页的设计，页面的设计主要负责网页的设计，页面的设计；主要负责网页的设计，页面的设计
+            {{ item.Performance }}
           </div>
         </div>
       </div>
     </div>
     <div class="footer">
-      <div class="box" @click="collectFunc">
+      <!-- <div class="box" @click="collectFunc">
         <i class="collect"></i>
         <span>收藏</span>
       </div>
-      <!-- <div class="box">
+      <div class="box">
         <i class="share"></i>
         <span>分享</span>
       </div> -->
@@ -396,6 +406,7 @@ export default {
   name: 'ResumeDetails',
   data () {
     return {
+      Data: {}, // 数据
       scrollTop: 0,
       popupStyle: {
         zIndex: 10
@@ -417,6 +428,11 @@ export default {
     PayWay,
     ResumeEmploy
   },
+  filters: {
+    EducatFilter (val) {
+      return ['初中', '高中', '大专', '本科', '研究生', '博士'][Number(val) + 1]
+    }
+  },
   methods: {
     collectFunc () {
       this.$vux.toast.text('已收藏')
@@ -428,9 +444,12 @@ export default {
   mounted () {
     window.addEventListener('scroll', this.handleScroll)
     ResumeInfo({
-      id: this.$route.query.id
+      member_id: this.$route.query.id,
+      user_id: 1340
     }).then(res => {
-      console.log(res)
+      if (res.code === 200) {
+        this.Data = res.data
+      }
     })
   }
 }

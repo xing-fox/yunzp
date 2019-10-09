@@ -168,7 +168,7 @@
       <div class="title">雇佣详情</div>
       <i class="close" @click="$emit('closeEmploy')"/>
       <div class="content-main">
-        <div class="list">
+        <!-- <div class="list">
           <div class="list-left list-type">雇佣方式</div>
           <div class="list-right">
             <ul class="switch">
@@ -180,28 +180,28 @@
               </li>
             </ul>
           </div>
-        </div>
+        </div> -->
         <div class="list" v-if="!employType">
-          <div class="list-left">项目开始时间</div>
+          <div class="list-left">导师费用</div>
           <div class="list-right">
-            <span class="salary">￥1000/月</span>
+            <span class="salary">￥1000/时</span>
           </div>
         </div>
-        <div class="list">
+        <!-- <div class="list">
           <div class="list-left">项目开始时间</div>
           <div class="list-right">
             <group>
               <datetime v-model="startDate" placeholder="请选择时间"/>
             </group>
           </div>
-        </div>
+        </div> -->
         <div class="list" v-if="!employType">
           <div class="list-left">雇佣时间</div>
           <div class="list-right">
             <ul class="employ-time">
-              <li>-</li>
-              <li class="employ-count">5</li>
-              <li>+</li>
+              <li @click="employTimeAction(0)">-</li>
+              <li class="employ-count">{{ employTime }}</li>
+              <li @click="employTimeAction(1)">+</li>
             </ul>
           </div>
         </div>
@@ -241,10 +241,16 @@ export default {
   data () {
     return {
       employType: false, // 雇佣方式 包月 true 、定制 false
+      employTime: 1, // 雇佣时间
       startDate: this.$moment().format('YYYY-MM-DD'),
       endDate: this.$moment().format('YYYY-MM-DD')
     }
   },
-  methods: {}
+  methods: {
+    employTimeAction (flag) {
+      if (flag === 0 && this.employTime !== 1) this.employTime--
+      if (flag === 1) this.employTime++
+    }
+  }
 }
 </script>

@@ -122,3 +122,10 @@ export const Resumelist = (param) => {
 export const ResumeInfo = (param) => {
   return Post('/mobile/bossmember/resume_info', param)
 }
+
+/**
+ * @param 用户充值（个人中心接口）
+ */
+export const MemberRecharge = (param) => {
+  return Post('/mobile/pay/member_recharge', param)
+}

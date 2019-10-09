@@ -75,11 +75,11 @@
 <template>
   <div class="input-search">
     <div class="header">
-      <input v-model="search" type="text" placeholder="网页设计">
-      <i class="search" />
+      <input v-model="search" type="text" placeholder="请输入">
+      <i class="search" @click="searchFunc" />
       <span @click="$router.go(-1)">返回</span>
     </div>
-    <div class="content">
+    <!-- <div class="content">
       <div class="title">历史搜索</div>
       <ul>
         <li>平面设计</li>
@@ -88,7 +88,7 @@
         <li>电商设计</li>
         <li>客服</li>
       </ul>
-    </div>
+    </div> -->
   </div>
 </template>
 
@@ -98,6 +98,16 @@ export default {
   data () {
     return {
       search: ''
+    }
+  },
+  methods: {
+    searchFunc () {
+      this.$router.push({
+        path: '/search',
+        query: {
+          keyWord: this.search
+        }
+      })
     }
   }
 }

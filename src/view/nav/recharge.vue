@@ -134,13 +134,14 @@
     </div>
     <!-- 支付页面 -->
     <Popup :popup-style="{popupPayStyle}" v-model="payStatus" :is-transparent="true">
-      <pay-way @closeEmploy="payStatus = false" />
+      <pay-way @closeEmploy="payStatus = false" @paySure="payFunc" />
     </Popup>
   </div>
 </template>
 
 <script>
 import { Popup } from 'vux'
+import { MemberRecharge } from '@/fetch/api'
 import PayWay from '@/components/pay/index'
 import { mapState, mapMutations } from 'vuex'
 export default {
@@ -150,11 +151,11 @@ export default {
       list: [{
         rechargeFee: 1000
       }, {
-        rechargeFee: 2000
-      }, {
         rechargeFee: 3000
       }, {
-        rechargeFee: 4000
+        rechargeFee: 5000
+      }, {
+        rechargeFee: 10000
       }],
       select: 0,
       payStatus: false,
@@ -174,6 +175,18 @@ export default {
     ...mapMutations([
       'StoreLoginInfo'
     ]),
+    payFunc () {
+      MemberRecharge({
+        amount: 0.01,
+        pay_type: 1,
+        client_type: 1,
+        user_id: 1340
+      }).then(res => {
+        if (res.code === 200) {
+          window.location.href = res.data.pay_url
+        }
+      })
+    },
     changeSelect (index) {
       this.select = index
     },
