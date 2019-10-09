@@ -302,6 +302,7 @@ export default {
       // navTypeChildIndex: 0, // 子导航index
       navType: [],
       keyWord: this.$route.query.keyWord || '', // 关键字
+      workType: this.$route.query.workType || '', // id查询
       listData: [] // list数据信息
     }
   },
@@ -329,7 +330,7 @@ export default {
      */
     getData (id) {
       Abilityindex({
-        work_type: id,
+        work_type: this.workType,
         key_word: this.keyWord, // 搜索关键字
         experience: this.navSearch[0].val[0], // 经验
         salary: this.navSearch[1].val[0], // 价格
@@ -346,14 +347,14 @@ export default {
      */
     ChangeNavFunc (eq) {
       this.navTypeIndex = eq
-      this.getData(this.navType[eq].parent_id)
-      // this.navTypeChildIndex = 0
+      this.workType = this.navType[eq].parent_id
+      this.getData()
     },
     /**
      * 条件状态切换
      */
     changePicker () {
-      this.getData(this.navType[this.navTypeIndex].parent_id)
+      this.getData()
     }
     /**
      * 子菜单导航切换
@@ -368,7 +369,8 @@ export default {
     Getworktype().then(res => {
       if (res.code === 200) {
         this.navType = res.data
-        this.getData(this.keyWord ? '' : res.data[this.navTypeIndex].parent_id)
+        if (!this.workType) this.workType = res.data[this.navTypeIndex].parent_id
+        this.getData()
       }
     }).then(() => {
       // nav滚动

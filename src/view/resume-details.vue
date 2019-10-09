@@ -249,8 +249,8 @@
         color: #fff;
         font-size: .32rem;
         width: 2.14rem;
-        height: .9rem;
-        line-height: .9rem;
+        height: .8rem;
+        line-height: .8rem;
         text-align: center;
         border-radius: .45rem;
         background: #0089F9;
@@ -258,19 +258,14 @@
       .employ {
         color: #fff;
         font-size: .32rem;
-        width: 2.58rem;
-        height: .9rem;
-        line-height: .4rem;
+        width: 2rem;
+        height: .8rem;
+        line-height: .8rem;
         margin: 0 0 0 .2rem;
-        padding: .05rem 0 0 0;
         text-align: center;
         border-radius: .45rem;
         box-sizing: border-box;
         background: #0089F9;
-        span {
-          display:inline-block;
-          width: 100%;
-        }
       }
     }
   }
@@ -383,16 +378,16 @@
       </div>
       <div class="employ" @click="employStatus = true">
         聘用
-        <span>¥1666/小时</span>
+        <!-- <span>¥1666/小时</span> -->
       </div>
     </div>
     <!-- 雇佣详情 -->
     <Popup :popup-style="{popupStyle}" v-model="employStatus" :is-transparent="true">
-      <resume-employ @closeEmploy="employStatus = false" @paySure="payStatus = true" />
+      <resume-employ @closeEmploy="employStatus = false" @paySure="payEmployMoney" />
     </Popup>
     <!-- 支付页面 -->
     <Popup :popup-style="{popupPayStyle}" v-model="payStatus" :is-transparent="true">
-      <pay-way @closeEmploy="payStatus = false" />
+      <pay-way :payMoney="payMoney" @paySure="payFunc" @closeEmploy="payStatus = false" />
     </Popup>
   </div>
 </template>
@@ -401,7 +396,7 @@
 import { Popup } from 'vux'
 import PayWay from '@/components/pay/index'
 import ResumeEmploy from '@/components/employ/index'
-import { ResumeInfo } from '@/fetch/api'
+import { ResumeInfo, MemberRecharge } from '@/fetch/api'
 export default {
   name: 'ResumeDetails',
   data () {
@@ -415,7 +410,8 @@ export default {
         zIndex: 11
       },
       payStatus: false,
-      employStatus: false
+      employStatus: false,
+      payMoney: 0 // 支付金额
     }
   },
   computed: {
@@ -439,13 +435,29 @@ export default {
     },
     handleScroll () {
       this.scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || document.scrollingElement.scrollTop || 0
+    },
+    payEmployMoney (val) {
+      this.payMoney = val
+      this.payStatus = true
+    },
+    payFunc () {
+      MemberRecharge({
+        amount: 0.01,
+        pay_type: 1,
+        client_type: 1
+        // user_id: 1340
+      }).then(res => {
+        if (res.code === 200) {
+          window.location.href = res.data.pay_url
+        }
+      })
     }
   },
   mounted () {
     window.addEventListener('scroll', this.handleScroll)
     ResumeInfo({
-      member_id: this.$route.query.id,
-      user_id: 1340
+      member_id: this.$route.query.id
+      // user_id: 1340
     }).then(res => {
       if (res.code === 200) {
         this.Data = res.data

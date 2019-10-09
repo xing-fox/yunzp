@@ -193,6 +193,13 @@ export default {
     RouteArr.map((item, index) => {
       if (item === this.$route.path) this.Flag = index
     })
+  },
+  watch: {
+    '$route' (to, from) {
+      ['/home', '/search', '/recharge', '/me'].map((item, index) => {
+        if (item === to.path) this.Flag = index
+      })
+    }
   }
 }
 </script>

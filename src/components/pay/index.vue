@@ -123,10 +123,10 @@
       <i class="close" @click="$emit('closeEmploy')"/>
       <div class="price">
         <span>合计费用</span>
-        <span>¥1999</span>
+        <span>¥{{ payMoney }}</span>
       </div>
       <div class="total-money">
-        <span>¥</span>1999
+        <span>¥</span>{{ payMoney }}
       </div>
       <div class="pay-way">
         <i class="wx" />
@@ -134,7 +134,7 @@
         <i class="choise" />
       </div>
       <div class="submit" @click="$emit('paySure')">
-        <span>支付宝支付¥1999</span>
+        <span>支付宝支付¥{{ payMoney }}</span>
       </div>
     </div>
   </div>
@@ -142,6 +142,12 @@
 
 <script>
 export default {
+  props: {
+    payMoney: {
+      type: Number || String,
+      default: 0
+    }
+  },
   components: {},
   data () {
     return {}

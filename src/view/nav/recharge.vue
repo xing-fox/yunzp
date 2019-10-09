@@ -117,7 +117,7 @@
     </div>
     <div class="balance">
       <div class="title">当前可用</div>
-      <div class="money">￥<span>{{userInfo.money || '---'}}</span></div>
+      <div class="money">￥<span>{{userInfo.money}}</span></div>
     </div>
     <div class="content">
       <div class="content-title">充值专区</div>
@@ -179,8 +179,8 @@ export default {
       MemberRecharge({
         amount: 0.01,
         pay_type: 1,
-        client_type: 1,
-        user_id: 1340
+        client_type: 1
+        // user_id: 1340
       }).then(res => {
         if (res.code === 200) {
           window.location.href = res.data.pay_url

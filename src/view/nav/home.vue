@@ -261,7 +261,10 @@
     </div>
     <div class="content">
       <ul>
-        <li v-for="(item, index) in navList" :key="index">
+        <li
+          v-for="(item, index) in navList"
+          :key="index"
+          @click="RouteChange(item.parent_id)">
           <div class="list">
             <img :src="item.icon">
             <p>{{ item.name }}</p>
@@ -377,6 +380,15 @@ export default {
     })
   },
   methods: {
+    // 路由跳转
+    RouteChange (id) {
+      this.$router.push({
+        path: 'search',
+        query: {
+          workType: id
+        }
+      })
+    },
     changeSearch () {
       this.$router.push({
         path: '/searchpage'

@@ -184,7 +184,7 @@
         <div class="list" v-if="!employType">
           <div class="list-left">导师费用</div>
           <div class="list-right">
-            <span class="salary">￥1000/时</span>
+            <span class="salary">￥{{ employMoney }}/时</span>
           </div>
         </div>
         <!-- <div class="list">
@@ -219,12 +219,12 @@
         <div class="list">
           <div class="list-left list-type">托管金额</div>
           <div class="list-right">
-            <input type="text" placeholder="10">
+            <input v-model="employDeposit" type="text" placeholder="0">
             <span class="unit">元</span>
           </div>
         </div>
       </div>
-      <div class="submit" @click="$emit('paySure')">
+      <div class="submit" @click="computeMoney">
         <span>确认佣金并支付</span>
       </div>
     </div>
@@ -241,7 +241,9 @@ export default {
   data () {
     return {
       employType: false, // 雇佣方式 包月 true 、定制 false
+      employMoney: 1200, // 雇佣费用
       employTime: 1, // 雇佣时间
+      employDeposit: 10, // 托管金额
       startDate: this.$moment().format('YYYY-MM-DD'),
       endDate: this.$moment().format('YYYY-MM-DD')
     }
@@ -250,6 +252,9 @@ export default {
     employTimeAction (flag) {
       if (flag === 0 && this.employTime !== 1) this.employTime--
       if (flag === 1) this.employTime++
+    },
+    computeMoney () {
+      this.$emit('paySure', Number(this.employMoney) * Number(this.employTime))
     }
   }
 }

@@ -9,10 +9,6 @@
       img {
         width: 1.86rem;
         height: 2.24rem;
-        background-image: url('@{path1}/user.png');
-        background-size: 1.5rem 1.5rem;
-        background-repeat: no-repeat;
-        background-position: center center;
       }
       .intro {
         flex: 1;
@@ -119,7 +115,7 @@
 <template>
   <ul>
     <li class="bor-b" v-for="(item, index) in Data" :key="index" @click="changeRoute(item.id)">
-      <img :src="item.avatar">
+      <img :src="item.avatar | avatarFilter">
       <div class="intro">
         <div class="intro-list">
           <span class="name">{{ item.user_login }}</span>
@@ -163,6 +159,11 @@ export default {
   computed: mapState({
     userInfo: state => state.Login.LoginInfo
   }),
+  filters: {
+    avatarFilter (val) {
+      return val || require('../icon/me/admin_user.jpg')
+    }
+  },
   methods: {
     changeRoute (id) {
       if (!this.userInfo.user_login) {
