@@ -27,6 +27,8 @@
           height: 1.3rem;
           margin: 0 .3rem 0 0;
           border-radius: 50%;
+          background-image: url('../../icon/me/user.png');
+          background-size: 100% 100%;
         }
         .users-login {
           color: #fff;
@@ -110,15 +112,22 @@
   }
 </style>
 
+<style lang="less">
+  .ivu-upload-list {
+    display: none;
+  }
+</style>
+
 <template>
   <div class="nav-me">
     <div class="header">
       <div class="uers">
-        <img src="../../icon/me/user.png" />
-        <Upload action="http://59.110.156.243:8043//mobile/member/upload_avatar?user_id=1340">
+        <img :src="UserInfo.member_avatar" />
+        <Upload
+          :on-success="handleSuccess"
+          action="http://59.110.156.243:8043//mobile/member/upload_avatar?user_id=1340">
           <i class="photo" />
         </Upload>
-        <!-- <i class="photo" /> -->
         <div class="users-login">
           <div class="title" v-if="!UserInfo.user_login" @click="loginInFunc">登陆注册</div>
           <div class="name" v-else>{{ UserInfo.user_login }}</div>
@@ -165,7 +174,7 @@
           <img src="../../icon/me/icon_server.png">
           <span>联系客服</span>
         </li>
-        <li @click="signOut">
+        <li v-if="UserInfo.member_avatar" @click="signOut">
           <img src="../../icon/me/icon_close.png">
           <span>退出登录</span>
         </li>
@@ -224,6 +233,13 @@ export default {
           }
         })
       }
+    },
+    // 图片上传
+    handleSuccess (res, file) {
+      this.$vux.toast.text('图片更换成功')
+      this.StoreLoginInfo(Object.assign(this.UserInfo, {
+        member_avatar: file.response.data.pic_url
+      }))
     }
   }
 }

@@ -8,16 +8,31 @@
     .header {
       display: flex;
       margin: 0 0 0 .24rem;
+      position: relative;
       input {
         color: #9b9b9b;
         font-size: .3rem;
         width: 6rem;
         height: .7rem;
-        line-height: .7rem;
+        line-height: initial;
         padding: 0 0 0 .3rem;
         border-radius: .35rem;
         box-sizing: border-box;
         background:rgba(242, 242, 242, 1);
+      }
+      i {
+        display: inline-block;
+        width: .9rem;
+        height: .7rem;
+        border-radius: 0 .35rem .35rem 0;
+        background-image: url('../icon/search/search-btn.png');
+        background-size: .35rem .35rem;
+        background-repeat: no-repeat;
+        background-color: rgba(0, 0, 0, .2);
+        background-position: center center;
+        position: absolute;
+        top: 0;
+        left: 5.1rem;
       }
       span {
         flex: 1;
@@ -61,7 +76,8 @@
   <div class="input-search">
     <div class="header">
       <input v-model="search" type="text" placeholder="网页设计">
-      <span @click="search = ''">取消</span>
+      <i class="search" />
+      <span @click="$router.go(-1)">返回</span>
     </div>
     <div class="content">
       <div class="title">历史搜索</div>

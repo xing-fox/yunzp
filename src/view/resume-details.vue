@@ -211,7 +211,7 @@
       }
       .box {
         flex: 1;
-        text-align: center;
+        text-align: left;
         padding: .1rem 0 0 0;
         i {
           display: inline-block;
@@ -364,16 +364,16 @@
         <i class="collect"></i>
         <span>收藏</span>
       </div>
-      <div class="box">
+      <!-- <div class="box">
         <i class="share"></i>
         <span>分享</span>
-      </div>
+      </div> -->
       <div class="contact">
         立即联系
       </div>
       <div class="employ" @click="employStatus = true">
-        雇佣
-        <span>¥1666/月</span>
+        聘用
+        <span>¥1666/小时</span>
       </div>
     </div>
     <!-- 雇佣详情 -->
@@ -391,6 +391,7 @@
 import { Popup } from 'vux'
 import PayWay from '@/components/pay/index'
 import ResumeEmploy from '@/components/employ/index'
+import { ResumeInfo } from '@/fetch/api'
 export default {
   name: 'ResumeDetails',
   data () {
@@ -426,6 +427,11 @@ export default {
   },
   mounted () {
     window.addEventListener('scroll', this.handleScroll)
+    ResumeInfo({
+      id: this.$route.query.id
+    }).then(res => {
+      console.log(res)
+    })
   }
 }
 </script>

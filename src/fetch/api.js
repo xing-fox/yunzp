@@ -115,3 +115,10 @@ export const Resumeinfo = (param) => {
 export const Resumelist = (param) => {
   return Post('/mobile/bossmember/resume_list', param)
 }
+
+/**
+ * @param 查看简历（个人中心接口）
+ */
+export const ResumeInfo = (param) => {
+  return Post('/mobile/bossmember/resume_info', param)
+}

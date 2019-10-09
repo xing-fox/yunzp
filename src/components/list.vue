@@ -13,11 +13,13 @@
         flex: 1;
         .intro-list {
           display: flex;
+          align-items: center;
+          justify-content: left;
           margin: 0 0 .2rem 0;
           padding: 0 0 0 .28rem;
           i, span {
+            line-height: initial;
             display: inline-block;
-            vertical-align: middle;
           }
           .name {
             flex: 1;
@@ -72,19 +74,17 @@
             &.icon-work {
               width: .3rem;
               height: .3rem;
-              margin: .06rem 0 0 0;
               background-image: url('@{path}/icon_work.png');
               background-size: 100% 100%;
             }
             &.icon-power {
               width: .28rem;
               height: .28rem;
-              margin: .06rem 0 0 0;
               background-image: url('@{path}/icon_power.png');
               background-size: 100% 100%;
             }
             &.power-type {
-              margin: .06rem .05rem 0;
+              margin: 0 .05rem 0;
             }
             &.power-type-1 {
               width: .24rem;
@@ -113,19 +113,19 @@
 
 <template>
   <ul>
-    <li v-for="(item, index) in Data" :key="index">
+    <li class="bor-b" v-for="(item, index) in Data" :key="index" @click="changeRoute(item.id)">
       <img :src="item.avatar">
       <div class="intro">
         <div class="intro-list">
           <span class="name">{{ item.user_login }}</span>
-          <span class="money">{{ item.yuexin }}元/月</span>
+          <span class="money">{{ item.yuexin || 0 }}元/小时</span>
         </div>
         <div class="intro-list">
           <i class="icon-work" />
-          <span class="work-time">{{ item.gongling }}年工作经验</span>
-          <span class="address">{{ item.province }}</span>
+          <span class="work-time" v-if="item.gongling">{{ item.gongling }}年工作经验</span>
+          <span class="address" v-if="item.province">{{ item.province }}</span>
         </div>
-        <div class="intro-list">
+        <div class="intro-list" v-if="item.level">
           <i class="icon-power" />
           <span class="work-power">能力值</span>
           <i v-for="(list, eq) in Number(item.level)" :key="eq" class="power-type power-type-1" />
@@ -134,9 +134,6 @@
         </div>
         <div class="intro-list">
           <span v-for="(list, eq) in item.tag" :key="eq" v-if="eq < 3" class="work-type" :class="'color' + (eq + 1)">{{ list }}</span>
-          <!-- <span class="work-type color1">网页设计</span>
-          <span class="work-type color2">banner</span>
-          <span class="work-type color3">电商设计</span> -->
         </div>
       </div>
     </li>
@@ -148,6 +145,16 @@ export default {
   props: {
     Data: {
       type: Array
+    }
+  },
+  methods: {
+    changeRoute (id) {
+      this.$router.push({
+        path: '/resumedetails',
+        query: {
+          id: id
+        }
+      })
     }
   }
 }

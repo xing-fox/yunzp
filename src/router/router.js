@@ -26,6 +26,13 @@ export default [
           title: '消息'
         }
       }, {
+        path: 'recharge',
+        name: 'Recharge',
+        component: resolve => require(['@/view/nav/recharge'], resolve),
+        meta: {
+          title: '充值'
+        }
+      }, {
         path: 'me',
         name: 'Me',
         component: resolve => require(['@/view/nav/me'], resolve),

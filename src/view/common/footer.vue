@@ -30,8 +30,8 @@
           &.search {
             background-image: url('@{path}/search.png');
           }
-          &.news {
-            background-image: url('@{path}/news.png');
+          &.recharge {
+            background-image: url('@{path}/recharge.png');
           }
           &.me {
             background-image: url('@{path}/me.png');
@@ -52,8 +52,8 @@
             &.search {
               background-image: url('@{path}/search_1.png');
             }
-            &.news {
-              background-image: url('@{path}/news_1.png');
+            &.recharge {
+              background-image: url('@{path}/recharge_1.png');
             }
             &.me {
               background-image: url('@{path}/me_1.png');
@@ -128,6 +128,10 @@
         <i class="search"></i>
         <span>找人才</span>
       </li>
+      <li :class="{active: Flag == 2}" @click="changeRoute(2, '/recharge')">
+        <i class="recharge"></i>
+        <span>充值</span>
+      </li>
       <!-- <li class="publish" @click="publishStatus=true"></li> -->
       <!-- <li :class="{active: Flag == 2}" @click="changeRoute(2, '/news')">
         <i class="news"></i>
@@ -185,7 +189,7 @@ export default {
     }
   },
   mounted () {
-    let RouteArr = ['/home', '/search', '', '/me']
+    let RouteArr = ['/home', '/search', '/recharge', '/me']
     RouteArr.map((item, index) => {
       if (item === this.$route.path) this.Flag = index
     })

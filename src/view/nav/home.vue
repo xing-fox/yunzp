@@ -45,6 +45,7 @@
           font-size: .3rem;
           width: 100%;
           height: .7rem;
+          line-height: initial;
           padding: 0 0 0 .85rem;
           text-align: left;;
           background-color: rgba(255, 255, 255, .3);
@@ -285,11 +286,11 @@
     </div>
     <div class="main">
       <div class="main-title">为您推荐人才</div>
-      <div class="main-nav wrapper" ref="navScroll">
+      <!-- <div class="main-nav wrapper" ref="navScroll">
         <ul ref="navContent">
           <li ref="navItem" v-for="(list, eq) in recommendData" :key="eq" :class="{active: eq == navTypeIndex}" @click="choiseRecommend(eq)">{{ list.name }}</li>
         </ul>
-      </div>
+      </div> -->
       <div class="main-list" v-if="listData.length">
         <List :Data="listData" />
       </div>
@@ -303,7 +304,7 @@
 
 <script>
 import Swiper from 'Swiper'
-import BScroll from 'better-scroll'
+// import BScroll from 'better-scroll'
 import List from '@/components/list'
 import { Getworktype, Employstate, RecommendData } from '@/fetch/api'
 export default {
@@ -312,7 +313,7 @@ export default {
     return {
       Swiper: '',
       Swiper1: '',
-      BScroll: '',
+      // BScroll: '',
       navList: [],
       navTypeIndex: 0,
       // navType: ['平面设计', '新媒体运营', '电话销售', '文案撰写', '电话销售', '新媒体运营'],
@@ -336,24 +337,25 @@ export default {
     // 推荐人才
     RecommendData().then(res => {
       if (res.code === 200) {
-        this.recommendData = res.data
-        this.listData = this.recommendData[this.navTypeIndex].member_list
+        // this.recommendData = res.data
+        // this.listData = this.recommendData[this.navTypeIndex].member_list
+        this.listData = res.data
       }
     }).then(() => {
       // nav滚动
-      this.$refs.navContent.style.width = (() => {
-        let width = 0
-        for (let i = 0; i < this.recommendData.length; i++) {
-          width += this.$refs.navItem[i].getBoundingClientRect().width
-        }
-        return width + 'px'
-      })()
-      this.BScroll = new BScroll(this.$refs.navScroll, {
-        startX: 0,
-        click: true,
-        scrollX: true,
-        scrollY: false
-      })
+      // this.$refs.navContent.style.width = (() => {
+      //   let width = 0
+      //   for (let i = 0; i < this.recommendData.length; i++) {
+      //     width += this.$refs.navItem[i].getBoundingClientRect().width
+      //   }
+      //   return width + 'px'
+      // })()
+      // this.BScroll = new BScroll(this.$refs.navScroll, {
+      //   startX: 0,
+      //   click: true,
+      //   scrollX: true,
+      //   scrollY: false
+      // })
     })
     // 获取工种类型
     Getworktype().then(res => {

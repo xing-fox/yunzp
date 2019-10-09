@@ -17,12 +17,6 @@ axios.interceptors.response.use(response => {
   return response
 }, error => {
   console.log(error.respose)
-  // if (error.response) {
-  //   switch (error.response.status) {
-  //     case 401:
-  //     case 500224:
-  //   }
-  // }
 })
 
 export function Get (url, param, headers) {
