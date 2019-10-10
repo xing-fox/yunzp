@@ -84,7 +84,9 @@ export default {
     }
   },
   mounted () {
-    Mywallet().then(res => {
+    Mywallet({
+      user_id: 1340
+    }).then(res => {
       this.canUseMoney = res.data.money
       this.frozenMoney = res.data.freeze
     })

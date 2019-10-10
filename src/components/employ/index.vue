@@ -184,7 +184,7 @@
         <div class="list" v-if="!employType">
           <div class="list-left">导师费用</div>
           <div class="list-right">
-            <span class="salary">￥{{ employMoney }}/时</span>
+            <span class="salary">￥{{ salary }}/时</span>
           </div>
         </div>
         <!-- <div class="list">
@@ -214,7 +214,7 @@
           </div>
         </div>
         <div class="list">
-          <textarea placeholder="请输入制作内容"></textarea>
+          <textarea v-model="employRemark" placeholder="请输入制作内容"></textarea>
         </div>
         <div class="list">
           <div class="list-left list-type">托管金额</div>
@@ -234,6 +234,12 @@
 <script>
 import { Datetime, Group } from 'vux'
 export default {
+  props: {
+    salary: {
+      type: String,
+      defalut: 0
+    }
+  },
   components: {
     Group,
     Datetime
@@ -241,9 +247,9 @@ export default {
   data () {
     return {
       employType: false, // 雇佣方式 包月 true 、定制 false
-      employMoney: 1200, // 雇佣费用
       employTime: 1, // 雇佣时间
-      employDeposit: 10, // 托管金额
+      employDeposit: 100, // 托管金额
+      employRemark: '', // 雇佣
       startDate: this.$moment().format('YYYY-MM-DD'),
       endDate: this.$moment().format('YYYY-MM-DD')
     }
@@ -254,7 +260,11 @@ export default {
       if (flag === 1) this.employTime++
     },
     computeMoney () {
-      this.$emit('paySure', Number(this.employMoney) * Number(this.employTime))
+      this.$emit('paySure', {
+        hour: this.employTime,
+        remark: this.employRemark,
+        total_amount: this.employDeposit
+      })
     }
   }
 }

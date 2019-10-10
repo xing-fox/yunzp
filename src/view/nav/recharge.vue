@@ -133,8 +133,14 @@
       <div class="btn" @click="payStatus = true">立即以{{list[select].rechargeFee}}元充值</div>
     </div>
     <!-- 支付页面 -->
-    <Popup :popup-style="{popupPayStyle}" v-model="payStatus" :is-transparent="true">
-      <pay-way @closeEmploy="payStatus = false" @paySure="payFunc" />
+    <Popup
+      v-model="payStatus"
+      :is-transparent="true"
+      :popup-style="{popupPayStyle}">
+      <pay-way
+        @paySure="payFunc"
+        :payMoney="payMoney"
+        @closeEmploy="payStatus = false" />
     </Popup>
   </div>
 </template>
@@ -159,6 +165,7 @@ export default {
       }],
       select: 0,
       payStatus: false,
+      payMoney: 0,
       popupPayStyle: {
         zIndex: 10
       }
@@ -259,12 +266,7 @@ export default {
     }
   },
   mounted () {
-    if (sessionStorage.getItem('outTradeNo')) {
-      setTimeout(() => {
-        this.payCallback()
-      }, 400)
-    }
-    this.getIndexCoupon()
+    this.payMoney = this.list[this.select].rechargeFee
   }
 }
 </script>

@@ -131,8 +131,22 @@ export const ResumeInfo = (param) => {
 }
 
 /**
- * @param 用户充值（个人中心接口）
+ * @param 用户充值接口（个人中心接口）
  */
 export const MemberRecharge = (param) => {
   return Post('/mobile/pay/member_recharge', param)
+}
+
+/**
+ * @param 交易接口（个人中心接口）
+ */
+export const ScriberService = (param) => {
+  return Post('/mobile/member/scriber_service', param)
+}
+
+/**
+ * @param 支付交易（个人中心接口）
+ */
+export const PayService = (param) => {
+  return Post('/mobile/member/pay_service', param)
 }

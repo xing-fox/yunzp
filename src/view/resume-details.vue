@@ -83,7 +83,7 @@
       }
     }
     .content {
-      padding: 1.86rem .24rem 1.5rem;
+      padding: 1.4rem .24rem 1.5rem;
       position: relative;
       ul.nav {
         display: flex;
@@ -319,11 +319,11 @@
       </ul>
     </div>
     <div class="content">
-      <ul :class="['nav', {fix: scrollTop > compileHeight}]">
+      <!-- <ul :class="['nav', {fix: scrollTop > compileHeight}]">
         <li class="active">个人简历</li>
-        <!-- <li>作品(12)</li>
-        <li>评价(15)</li> -->
-      </ul>
+        <li>作品(12)</li>
+        <li>评价(15)</li>
+      </ul> -->
       <div class="title">
         <span>基本信息</span>
       </div>
@@ -383,7 +383,10 @@
     </div>
     <!-- 雇佣详情 -->
     <Popup :popup-style="{popupStyle}" v-model="employStatus" :is-transparent="true">
-      <resume-employ @closeEmploy="employStatus = false" @paySure="payEmployMoney" />
+      <resume-employ
+        :salary="Data.yuexin"
+        @paySure="payEmployMoney"
+        @closeEmploy="employStatus = false" />
     </Popup>
     <!-- 支付页面 -->
     <Popup :popup-style="{popupPayStyle}" v-model="payStatus" :is-transparent="true">
@@ -396,7 +399,7 @@
 import { Popup } from 'vux'
 import PayWay from '@/components/pay/index'
 import ResumeEmploy from '@/components/employ/index'
-import { ResumeInfo, MemberRecharge } from '@/fetch/api'
+import { ResumeInfo, ScriberService, PayService } from '@/fetch/api'
 export default {
   name: 'ResumeDetails',
   data () {
@@ -411,7 +414,8 @@ export default {
       },
       payStatus: false,
       employStatus: false,
-      payMoney: 0 // 支付金额
+      payMoney: 0, // 支付金额
+      createOrder: {}
     }
   },
   computed: {
@@ -437,20 +441,38 @@ export default {
       this.scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || document.scrollingElement.scrollTop || 0
     },
     payEmployMoney (val) {
-      this.payMoney = val
+      this.payMoney = val.total_amount + Number(val.hour) * Number(this.Data.yuexin)
+      this.createOrder = Object.assign({}, val)
       this.payStatus = true
     },
     payFunc () {
-      MemberRecharge({
-        amount: 0.01,
-        pay_type: 1,
-        client_type: 1
-        // user_id: 1340
-      }).then(res => {
-        if (res.code === 200) {
-          window.location.href = res.data.pay_url
+      // 生成订单
+      ScriberService(Object.assign(this.createOrder, {
+        teacher_id: this.$route.query.id,
+        user_id: 1342
+      })).then(res => {
+        if (Number(res.code) === 200) {
+          PayService({
+            order_sn: res.data.order_sn
+            // user_id: 1342
+          }).then(res => {
+            if (Number(res.code) === 200) {
+              window.location.href = res.data.pay_url
+            }
+          })
         }
       })
+
+      // MemberRecharge({
+      //   amount: 0.01,
+      //   pay_type: 1,
+      //   client_type: 1,
+      //   user_id: 1340
+      // }).then(res => {
+      //   if (res.code === 200) {
+      //     window.location.href = res.data.pay_url
+      //   }
+      // })
     },
     routeChange () {
       this.$router.push({
@@ -459,7 +481,7 @@ export default {
     }
   },
   mounted () {
-    window.addEventListener('scroll', this.handleScroll)
+    // window.addEventListener('scroll', this.handleScroll)
     ResumeInfo({
       member_id: this.$route.query.id
       // user_id: 1340
