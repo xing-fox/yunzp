@@ -124,8 +124,9 @@
       <div class="uers">
         <img :src="UserInfo.member_avatar" />
         <Upload
+          :with-credentials="true"
           :on-success="handleSuccess"
-          action="http://59.110.156.243:8043//mobile/member/upload_avatar?user_id=1340">
+          action="http://59.110.156.243:8043//mobile/member/upload_avatar">
           <i class="photo" />
         </Upload>
         <div class="users-login">
@@ -170,7 +171,7 @@
           <img src="../../icon/me/icon_invite.png">
           <span>邀请好友</span>
         </li> -->
-        <li @click="routeChange('/myresume')">
+        <li @click="routeChange('/customerservice')">
           <img src="../../icon/me/icon_server.png">
           <span>联系客服</span>
         </li>
@@ -236,10 +237,27 @@ export default {
     },
     // 图片上传
     handleSuccess (res, file) {
-      this.$vux.toast.text('图片更换成功')
-      this.StoreLoginInfo(Object.assign(this.UserInfo, {
-        member_avatar: file.response.data.pic_url
-      }))
+      console.log(file)
+      if (Number(file.response.code) === 302) {
+        return this.$vux.confirm.show({
+          title: '',
+          content: '暂未登录或登录超时,请先登录',
+          onCancel: () => {
+            // router.go(-1)
+          },
+          confirmText: '登录',
+          onConfirm: () => {
+            this.$router.push({
+              path: 'login'
+            })
+          }
+        })
+      } else {
+        this.$vux.toast.text('图片更换成功')
+        this.StoreLoginInfo(Object.assign(this.UserInfo, {
+          member_avatar: file.response.data.pic_url
+        }))
+      }
     }
   }
 }

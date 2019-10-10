@@ -4,14 +4,18 @@ import store from '@/store'
 import router from './router'
 import moment from 'moment'
 // import fastclick from 'fastclick'
+import VConsole from 'vconsole/dist/vconsole.min.js'
 import { ToastPlugin, ConfirmPlugin, LoadingPlugin } from 'vux'
 import '@/style/common.css'
 
 Vue.use(ToastPlugin, {position: 'top'})
 Vue.use(ConfirmPlugin)
 Vue.use(LoadingPlugin)
+
 Vue.prototype.$moment = moment
 Vue.config.productionTip = false
+
+Vue.prototype.vConsole = new VConsole()
 
 // if ('addEventListener' in document) {
 //   document.addEventListener('DOMContentLoaded', () => {

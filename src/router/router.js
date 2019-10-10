@@ -139,6 +139,14 @@ export default [
     }
   },
   {
+    path: '/customerservice',
+    name: 'CustomerService',
+    component: resolve => require(['@/view/my/my-service'], resolve),
+    meta: {
+      title: '客服'
+    }
+  },
+  {
     path: '/publistneed',
     name: 'PublistNeed',
     component: resolve => require(['@/view/publish/publish-need'], resolve),

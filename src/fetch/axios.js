@@ -1,10 +1,13 @@
 import axios from 'axios'
 import qs from 'qs'
+import Vue from 'vue'
+import router from '@/router'
+import store from '@/store/index'
 
 // axios 配置
 axios.defaults.timeout = 50000
 
-axios.defaults.baseURL = 'http://59.110.156.243:8043/'
+axios.defaults.baseURL = 'http://www.xiaoxixue.com:8043/'
 axios.defaults.withCredentials = false
 
 axios.interceptors.request.use(config => {
@@ -14,7 +17,24 @@ axios.interceptors.request.use(config => {
 })
 
 axios.interceptors.response.use(response => {
-  return response
+  if (Number(response.data.code) === 302) {
+    store.commit('StoreLoginInfo', {})
+    return Vue.$vux.confirm.show({
+      title: '',
+      content: '暂未登录或登录超时,请先登录',
+      onCancel: () => {
+        // router.go(-1)
+      },
+      confirmText: '登录',
+      onConfirm: () => {
+        router.push({
+          path: 'login'
+        })
+      }
+    })
+  } else {
+    return response
+  }
 }, error => {
   console.log(error.respose)
 })

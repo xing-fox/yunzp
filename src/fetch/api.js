@@ -96,6 +96,13 @@ export const Employeelist = (param) => {
 }
 
 /**
+ * @param 我的员工（个人中心接口）
+ */
+export const Mystaff = (param) => {
+  return Post('/mobile/bossmember/mystaff', param)
+}
+
+/**
  * @param 我的收藏（个人中心接口）
  */
 export const Collectionlist = (param) => {

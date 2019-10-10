@@ -87,48 +87,83 @@
             v-for="(list, eq) in navType"
             :key="eq"
             :class="{active: eq == navTypeIndex}"
-          >{{ list }}</li>
+            @click="changeWorkType(eq)"
+          >{{ list.name }}</li>
         </ul>
       </div>
       <div class="main-nav-details">
         <ul>
-          <li class="active">待支付</li>
-          <li>已完成</li>
+          <li v-for="(item, index) in statusList" :key="index" :class="{ active: statusIndex === index}" @click="changeStatus(index)">{{ item }}</li>
         </ul>
       </div>
-      <staff-list :FromStaff="true" />
+      <staff-list :FromStaff="true" :Data="dataList" />
     </div>
   </div>
 </template>
 
 <script>
+import { Mystaff, Getworktype } from '@/fetch/api'
 import BScroll from 'better-scroll'
 import StaffList from '@/components/my/my-staff-list'
 export default {
   name: 'MyStaff',
   data () {
     return {
+      status: 1, // 支付状态(1 待支付  2 已完成)
+      workType: '', // 工作类型
       navTypeIndex: 0,
-      navType: ['平面设计', '新媒体运营', '电话销售', '文案撰写', '电话销售', '新媒体运营']
+      navType: [], // 工种类型
+      dataList: [],
+      statusIndex: 0,
+      statusList: ['待支付', '已支付']
     }
   },
   components: {
     StaffList
   },
+  methods: {
+    getData () {
+      Mystaff({
+        status: this.status,
+        work_type: this.workType
+      }).then(res => {
+        if (res.code === 200) this.dataList = res.data
+      })
+    },
+    changeStatus (eq) {
+      this.statusIndex = eq
+      this.status = eq + 1
+      this.getData()
+    },
+    changeWorkType (eq) {
+      this.navTypeIndex = eq
+      this.workType = this.navType[eq].parent_id
+      this.getData()
+    }
+  },
   mounted () {
-    // nav滚动
-    this.$refs.navContent.style.width = (() => {
-      let width = 0
-      for (let i = 0; i < this.navType.length; i++) {
-        width += this.$refs.navItem[i].getBoundingClientRect().width
+    // 获取所有工种
+    Getworktype().then(res => {
+      if (res.code === 200) {
+        this.navType = res.data
+        this.workType = res.data[this.navTypeIndex].parent_id
+        this.getData()
       }
-      return width + 'px'
-    })()
-    this.BScroll = new BScroll(this.$refs.navScroll, {
-      startX: 0,
-      click: true,
-      scrollX: true,
-      scrollY: false
+    }).then(() => {
+      // nav滚动
+      this.$refs.navContent.style.width = (() => {
+        let width = 0
+        for (let i = 0; i < this.navType.length; i++) {
+          width += this.$refs.navItem[i].getBoundingClientRect().width
+        }
+        return width + 'px'
+      })()
+      this.BScroll = new BScroll(this.$refs.navScroll, {
+        startX: 0,
+        click: true,
+        scrollX: true,
+        scrollY: false
+      })
     })
   }
 }

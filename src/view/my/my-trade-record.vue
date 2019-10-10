@@ -94,7 +94,7 @@ export default {
   methods: {
     GetData (type) {
       transactionrecord({
-        user_id: 1342,
+        // user_id: 1342,
         work_type: type
       }).then(res => {
         this.Data = res.data

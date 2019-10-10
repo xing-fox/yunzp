@@ -113,12 +113,12 @@
           </div>
           <div class="c-right">
             <div class="title">
-              <span>{{ item.xingming }}</span>
+              <span>{{ item.user_login }}</span>
               <!-- <span class="type type-success">交易成功</span> -->
               <span v-if="!FromTrade && !FromStaff" class="type type-fail">退款成功</span>
             </div>
             <div class="time">
-              雇佣周期：<span>{{ item.start_time }}--{{ item.end_time }}</span>
+              雇佣周期：<span>{{ item.start_time }}—{{ item.end_time }}</span>
             </div>
             <div class="money" v-if="!FromTrade">
               托管金额：<span>¥{{ item.gongzi }}</span>
@@ -129,17 +129,17 @@
           </div>
         </div>
         <div class="li-bottom" v-if="NoButton">
-          <div v-if="FromTrade" class="button button-color">
+          <div v-if="FromTrade && !FromStaff" class="button button-color">
             <div class="button-box">
               <span>联系Ta</span>
             </div>
           </div>
-          <div v-if="!FromTrade" class="button button-color">
+          <div v-if="!FromTrade && !FromStaff" class="button button-color">
             <div class="button-box">
               <span>取消订单</span>
             </div>
           </div>
-          <div v-if="!FromTrade" class="button button-pay">
+          <div v-if="!FromTrade && !FromStaff" class="button button-pay">
             <div class="button-box">
               <span>取消订单</span>
             </div>

@@ -373,7 +373,7 @@
         <i class="share"></i>
         <span>分享</span>
       </div> -->
-      <div class="contact">
+      <div class="contact" @click="routeChange">
         立即联系
       </div>
       <div class="employ" @click="employStatus = true">
@@ -450,6 +450,11 @@ export default {
         if (res.code === 200) {
           window.location.href = res.data.pay_url
         }
+      })
+    },
+    routeChange () {
+      this.$router.push({
+        path: '/customerservice'
       })
     }
   },
